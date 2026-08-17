@@ -1,1085 +1,199 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+  <title>성구 자료</title>
 
-<meta name="theme-color" content="#f4f7fb">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<title>호별봉사와 전시대 봉사를 위해 준비</title>
-
-<style>
-/* =========================
-   기본 설정
-========================= */
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: #f4f7fb;
-    color: #172033;
-    font-family:
+    body {
+      margin: 0;
+      background: #f5f7f6;
+      font-family:
         -apple-system,
         BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
         "Noto Sans KR",
-        "Malgun Gothic",
         sans-serif;
-    line-height: 1.55;
-}
+      color: #222;
+    }
 
-/* =========================
-   전체 영역
-========================= */
-
-.container {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 18px 14px 50px;
-}
-
-/* =========================
-   상단 제목
-========================= */
-
-.top-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 24px 20px 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 18px rgba(30, 50, 80, 0.08);
-}
-
-.top-card h1 {
-    margin: 0;
-    font-size: 27px;
-    line-height: 1.35;
-    letter-spacing: -1.2px;
-    font-weight: 800;
-}
-
-.top-card p {
-    margin: 9px 0 0;
-    color: #687386;
-    font-size: 14px;
-}
-
-/* =========================
-   검색
-========================= */
-
-.search-box {
-    margin-top: 17px;
-}
-
-.search-box input {
-    width: 100%;
-    height: 48px;
-    border: 1px solid #dce2eb;
-    border-radius: 14px;
-    padding: 0 15px;
-    font-size: 16px;
-    background: #f8fafc;
-    outline: none;
-}
-
-.search-box input:focus {
-    background: #ffffff;
-    border-color: #7d9bc5;
-}
-
-/* =========================
-   자료 목록
-========================= */
-
-.menu-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 10px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 18px rgba(30, 50, 80, 0.07);
-}
-
-.menu-title {
-    padding: 12px 14px 8px;
-    font-size: 17px;
-    font-weight: 800;
-    color: #27364d;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 50px;
-    margin: 4px 0;
-    padding: 10px 12px;
-    border-radius: 13px;
-    text-decoration: none;
-    color: #1c4f91;
-    background: #f7f9fc;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    transition: 0.15s;
-}
-
-.menu-item:active {
-    transform: scale(0.98);
-    background: #eaf0f8;
-}
-
-.number {
-    flex: 0 0 auto;
-    min-width: 42px;
-    color: #64748b;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.arrow {
-    margin-left: auto;
-    padding-left: 8px;
-    color: #9aa6b6;
-    font-size: 18px;
-}
-
-/* =========================
-   자료 상세
-========================= */
-
-.section {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 20px 14px 14px;
-    margin-top: 18px;
-    box-shadow: 0 4px 18px rgba(30, 50, 80, 0.07);
-    scroll-margin-top: 15px;
-}
-
-.section-title {
-    margin: 0 4px 14px;
-    font-size: 21px;
-    line-height: 1.4;
-    font-weight: 800;
-    letter-spacing: -0.7px;
-}
-
-.section-title .small {
-    display: block;
-    margin-top: 3px;
-    color: #65738a;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.article-link {
-    display: block;
-    padding: 12px 13px;
-    margin: 5px 0;
-    border-radius: 12px;
-    background: #f7f9fc;
-    color: #174d92;
-    text-decoration: none;
-    font-size: 15px;
-    line-height: 1.45;
-}
-
-.article-link:active {
-    background: #e9eff7;
-}
-
-/* =========================
-   강조 링크
-========================= */
-
-.article-link.red {
-    color: #d92828;
-    font-weight: 800;
-    background: #fff5f5;
-}
-
-.article-link.blue {
-    color: #174d92;
-}
-
-/* =========================
-   외부 링크
-========================= */
-
-.external {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #edf0f4;
-}
-
-.external a {
-    display: block;
-    padding: 11px 13px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #315b8f;
-    background: #f5f7fa;
-    font-size: 14px;
-}
-
-/* =========================
-   돌아가기
-========================= */
-
-.return {
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-    padding: 13px;
-    text-align: center;
-    border-radius: 13px;
-    text-decoration: none;
-    background: #edf2f8;
-    color: #42546b;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-/* =========================
-   준비 중
-========================= */
-
-.prepare {
-    color: #8a95a5;
-    background: #f8f9fb;
-    border-radius: 12px;
-    padding: 13px;
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-/* =========================
-   하단
-========================= */
-
-.footer {
-    text-align: center;
-    color: #8a94a3;
-    font-size: 12px;
-    padding: 28px 10px 10px;
-}
-
-/* =========================
-   검색 결과 숨김
-========================= */
-
-.hidden {
-    display: none !important;
-}
-
-/* =========================
-   작은 휴대폰
-========================= */
-
-@media (max-width: 380px) {
+    .header {
+      background: #3f7f4a;
+      color: white;
+      padding: 18px 20px;
+      font-size: 23px;
+      font-weight: 700;
+    }
 
     .container {
-        padding: 12px 10px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 18px 14px 40px;
     }
 
-    .top-card {
-        padding: 20px 16px 17px;
+    .page-title {
+      font-size: 27px;
+      font-weight: 700;
+      margin: 8px 4px 18px;
     }
 
-    .top-card h1 {
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .title {
+      font-size: 23px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .row {
+      display: flex;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .label {
+      width: 75px;
+      flex-shrink: 0;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .value {
+      flex: 1;
+    }
+
+    .type {
+      display: inline-block;
+      background: #d9f4df;
+      color: #28733a;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .bible-button {
+      display: block;
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #3f7f4a;
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .bible-button:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 480px) {
+
+      .header {
+        font-size: 21px;
+        padding: 16px;
+      }
+
+      .container {
+        padding: 14px 10px 30px;
+      }
+
+      .page-title {
         font-size: 24px;
-    }
+      }
 
-    .menu-item {
-        font-size: 15px;
-    }
+      .card {
+        padding: 19px 16px;
+      }
 
-    .section-title {
-        font-size: 19px;
-    }
+      .title {
+        font-size: 21px;
+      }
 
-    .article-link {
-        font-size: 14px;
+      .row {
+        font-size: 16px;
+      }
+
+      .label {
+        width: 70px;
+      }
+
+      .bible-button {
+        font-size: 17px;
+        padding: 15px;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
 <body>
 
-<div class="container" id="top">
+  <div class="header">
+    봉사를 위한 준비
+  </div>
 
-    <!-- =========================
-         제목
-    ========================== -->
+  <main class="container">
 
-    <div class="top-card">
+    <div class="page-title">
+      성구 자료
+    </div>
 
-        <h1>
-            호별봉사와 전시대 봉사를 위해 준비
-        </h1>
+    <div class="card">
 
-        <p>
-            필요한 자료를 선택해 주세요.
-        </p>
+      <div class="title">
+        고난에대한 성구
+      </div>
 
-        <div class="search-box">
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="자료 검색..."
-                autocomplete="off">
+      <div class="row">
+        <div class="label">자료유형</div>
+        <div class="value">
+          <span class="type">링크</span>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="label">설명</div>
+        <div class="value">
+          고난과 시련에 대한 말씀
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">성구</div>
+        <div class="value">
+          로마서 5:12
+        </div>
+      </div>
+
+      <!-- 성구 링크 -->
+      <a
+        class="bible-button"
+        href="https://wol.jw.org/ko/wol/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        성구 보기 ↗
+      </a>
 
     </div>
 
-
-    <!-- =========================
-         전체 자료 목록
-    ========================== -->
-
-    <div class="menu-card">
-
-        <div class="menu-title">
-            📚 자료 목록
-        </div>
-
-        <a class="menu-item searchable"
-           href="#gohan"
-           data-search="고난">
-            <span class="number">(1)</span>
-            <span>고난</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#gwahak"
-           data-search="과학">
-            <span class="number">(2)</span>
-            <span>과학</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#gesirok"
-           data-search="게시록 게시물">
-            <span class="number">(3)</span>
-            <span>게시록</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#ginyumsik"
-           data-search="기념식 주의 만찬">
-            <span class="number">(4)</span>
-            <span>기념식, 주의 만찬</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#daesok"
-           data-search="대속">
-            <span class="number">(5)</span>
-            <span>대속</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#buhwaljeol"
-           data-search="부활절">
-            <span class="number">(6)</span>
-            <span>부활절</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#dongseongae"
-           data-search="동성애">
-            <span class="number">(7)</span>
-            <span>동성애</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#daehwabangbeop"
-           data-search="대화방법 제안">
-            <span class="number">(8)</span>
-            <span>대화방법 제안</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#mirae"
-           data-search="미래 약속 희망">
-            <span class="number">(9)</span>
-            <span>미래 약속 희망</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#buhwal"
-           data-search="부활">
-            <span class="number">(10)</span>
-            <span>부활</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#samwiilche"
-           data-search="삼위일체">
-            <span class="number">(11)</span>
-            <span>삼위일체</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#saengil"
-           data-search="생일">
-            <span class="number">(12)</span>
-            <span>생일</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#suhyeol"
-           data-search="수혈">
-            <span class="number">(13)</span>
-            <span>수혈</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#sipjaga"
-           data-search="십자가">
-            <span class="number">(14)</span>
-            <span>십자가</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#ansigil"
-           data-search="안식일">
-            <span class="number">(15)</span>
-            <span>안식일</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#wangguk"
-           data-search="왕국 하느님의 나라">
-            <span class="number">(16)</span>
-            <span>왕국(하느님의 나라)</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#yeongui"
-           data-search="영의 칼">
-            <span class="number">(17)</span>
-            <span>영의 칼</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#yeheon"
-           data-search="예언">
-            <span class="number">(18)</span>
-            <span>예언</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#ireum"
-           data-search="이름 하느님의 이름">
-            <span class="number">(19)</span>
-            <span>이름(하느님의 이름)</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#jeonjaeng"
-           data-search="전쟁">
-            <span class="number">(20)</span>
-            <span>전쟁</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#jeongchi"
-           data-search="정치 종립">
-            <span class="number">(21)</span>
-            <span>정치 중립</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#jeondo"
-           data-search="전파 전도">
-            <span class="number">(22)</span>
-            <span>전파·전도</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#jugum"
-           data-search="죽음">
-            <span class="number">(23)</span>
-            <span>죽음</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#jiok"
-           data-search="지옥">
-            <span class="number">(24)</span>
-            <span>지옥</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#cheonuk"
-           data-search="천국">
-            <span class="number">(25)</span>
-            <span>천국</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#christmas"
-           data-search="크리스마스">
-            <span class="number">(26)</span>
-            <span>크리스마스</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#tongchi"
-           data-search="통치자">
-            <span class="number">(27)</span>
-            <span>통치자</span>
-            <span class="arrow">›</span>
-        </a>
-
-        <a class="menu-item searchable"
-           href="#pyeonji"
-           data-search="편지봉사">
-            <span class="number">(28)</span>
-            <span>편지봉사</span>
-            <span class="arrow">›</span>
-        </a>
-
-    </div>
-
-
-    <!-- =========================
-         고난
-    ========================== -->
-
-    <section class="section searchable-section"
-             id="gohan"
-             data-search="고난">
-
-        <h2 class="section-title">
-            고난
-            <span class="small">
-                사람이 고난을 겪는 이유?
-            </span>
-        </h2>
-
-        <a class="article-link"
-           href="#">
-            (1) 고난
-        </a>
-
-        <a class="article-link red"
-           href="#">
-            (2)(전도지) 고난 없이 살 수 있을 때가 과연 올까요?
-        </a>
-
-        <a class="article-link red"
-           href="#">
-            (3)(전도지) 누가 이 세상을 실제로 지배하고 있을까요?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (4)&lt;깨어라 2011년 7월&gt;
-            이토록 고난이 많은 이유가 무엇입니까?
-            개인의 선택, 예기치 못한 일, 이 세상의 통치자
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (5)&lt;성경 질문과 대답&gt;
-            우리가 겪는 고난에 대한 책임이 하느님에게 있습니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (6)&lt;성경 질문과 대답&gt;
-            모든 고난의 원인은 마귀에게 있습니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (7)&lt;성경 질문과 대답&gt;
-            성경은 자연재해에 대해 무엇을 알려 줍니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (8)&lt;성경 질문과 대답&gt;
-            성경은 세계적인 전염병 유행에 관해 무엇이라고 알려 줍니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (9)&lt;성경 질문과 대답&gt;
-            세계 평화를 이루기가 이토록 어려운 이유는 무엇입니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (10)&lt;파수대 2018년 제3호&gt;
-            하느님은 머지않아 모든 고난을 없애실 것입니다
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (11)&lt;깨어라 2017년 제5호&gt;
-            재난이 닥쳤을 때 생존하려면
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (12)&lt;성경의 기본 가르침-동영상&gt;
-            자연재해는 하느님이 일으키시는 것입니까?
-        </a>
-
-        <div class="external">
-            <a href="https://www.jw.org/ko/"
-               target="_blank"
-               rel="noopener">
-                (13) 고난 관련 출판물 검색 (JW.ORG) ↗
-            </a>
-        </div>
-
-        <a class="return" href="#top">
-            ↑ 처음으로
-        </a>
-
-    </section>
-
-
-    <!-- =========================
-         과학
-    ========================== -->
-
-    <section class="section searchable-section"
-             id="gwahak"
-             data-search="과학">
-
-        <h2 class="section-title">
-            과학
-            <span class="small">
-                성경이 과학적으로 정확함
-            </span>
-        </h2>
-
-        <a class="article-link"
-           href="#">
-            (1) 과학
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (2)&lt;성경 질문과 대답&gt;
-            성경은 과학적으로 정확합니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (3)&lt;파수대 2018년 제1호&gt;
-            성경은 시대에 뒤처지는가, 아니면 시대를 앞서는가?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (4)&lt;깨어라 2007년 11월&gt;
-            성서를 믿을 수 있는 이유 - 과학적 정확성
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (5)&lt;성경 질문과 대답&gt;
-            성경은 지구가 평평하다고 가르칩니까?
-        </a>
-
-        <a class="article-link"
-           href="#">
-            (6)&lt;연재 기사&gt;
-            시대를 앞서 하는 나오는 위생 규정
-        </a>
-
-        <div class="external">
-            <a href="https://www.jw.org/ko/"
-               target="_blank"
-               rel="noopener">
-                (7) 과학 관련 출판물 검색 (JW.ORG) ↗
-            </a>
-        </div>
-
-        <a class="return" href="#top">
-            ↑ 처음으로
-        </a>
-
-    </section>
-
-
-    <!-- =========================
-         나머지 자료
-         현재 화면에서 세부 항목은 보이지 않으므로
-         제목 구조만 유지
-    ========================== -->
-
-    <section class="section searchable-section"
-             id="gesirok"
-             data-search="게시록 게시물">
-
-        <h2 class="section-title">(3) 게시록</h2>
-        <div class="prepare">
-            세부 자료를 추가할 수 있습니다.
-        </div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="ginyumsik"
-             data-search="기념식 주의 만찬">
-
-        <h2 class="section-title">(4) 기념식, 주의 만찬</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="daesok"
-             data-search="대속">
-
-        <h2 class="section-title">(5) 대속</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="buhwaljeol"
-             data-search="부활절">
-
-        <h2 class="section-title">(6) 부활절</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="dongseongae"
-             data-search="동성애">
-
-        <h2 class="section-title">(7) 동성애</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="daehwabangbeop"
-             data-search="대화방법 제안">
-
-        <h2 class="section-title">(8) 대화방법 제안</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="mirae"
-             data-search="미래 약속 희망">
-
-        <h2 class="section-title">(9) 미래 약속 희망</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="buhwal"
-             data-search="부활">
-
-        <h2 class="section-title">(10) 부활</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="samwiilche"
-             data-search="삼위일체">
-
-        <h2 class="section-title">(11) 삼위일체</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="saengil"
-             data-search="생일">
-
-        <h2 class="section-title">(12) 생일</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="suhyeol"
-             data-search="수혈">
-
-        <h2 class="section-title">(13) 수혈</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="sipjaga"
-             data-search="십자가">
-
-        <h2 class="section-title">(14) 십자가</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="ansigil"
-             data-search="안식일">
-
-        <h2 class="section-title">(15) 안식일</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="wangguk"
-             data-search="왕국 하느님의 나라">
-
-        <h2 class="section-title">(16) 왕국(하느님의 나라)</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="yeongui"
-             data-search="영의 칼">
-
-        <h2 class="section-title">(17) 영의 칼</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="yeheon"
-             data-search="예언">
-
-        <h2 class="section-title">(18) 예언</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="ireum"
-             data-search="이름 하느님의 이름">
-
-        <h2 class="section-title">(19) 이름(하느님의 이름)</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="jeonjaeng"
-             data-search="전쟁">
-
-        <h2 class="section-title">(20) 전쟁</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="jeongchi"
-             data-search="정치 중립">
-
-        <h2 class="section-title">(21) 정치 중립</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="jeondo"
-             data-search="전파 전도">
-
-        <h2 class="section-title">(22) 전파 전도</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="jugum"
-             data-search="죽음">
-
-        <h2 class="section-title">(23) 죽음</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="jiok"
-             data-search="지옥">
-
-        <h2 class="section-title">(24) 지옥</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="cheonuk"
-             data-search="천국">
-
-        <h2 class="section-title">(25) 천국</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="christmas"
-             data-search="크리스마스">
-
-        <h2 class="section-title">(26) 크리스마스</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="tongchi"
-             data-search="통치자">
-
-        <h2 class="section-title">(27) 통치자</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <section class="section searchable-section"
-             id="pyeonji"
-             data-search="편지봉사">
-
-        <h2 class="section-title">(28) 편지봉사</h2>
-        <div class="prepare">세부 자료를 추가할 수 있습니다.</div>
-        <a class="return" href="#top">↑ 처음으로</a>
-    </section>
-
-
-    <div class="footer">
-        호별봉사와 전시대 봉사를 위한 자료
-    </div>
-
-</div>
-
-
-<script>
-/* =========================
-   검색 기능
-========================= */
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const menuItems =
-    document.querySelectorAll(".searchable");
-
-const sections =
-    document.querySelectorAll(".searchable-section");
-
-
-searchInput.addEventListener("input", function () {
-
-    const keyword =
-        this.value.trim().toLowerCase();
-
-    /* 메뉴 검색 */
-    menuItems.forEach(function(item) {
-
-        const text =
-            (item.innerText + " " +
-             item.dataset.search)
-            .toLowerCase();
-
-        if (!keyword || text.includes(keyword)) {
-            item.classList.remove("hidden");
-        } else {
-            item.classList.add("hidden");
-        }
-
-    });
-
-    /* 상세 자료 검색 */
-    sections.forEach(function(section) {
-
-        const text =
-            (section.innerText + " " +
-             section.dataset.search)
-            .toLowerCase();
-
-        if (!keyword || text.includes(keyword)) {
-            section.classList.remove("hidden");
-        } else {
-            section.classList.add("hidden");
-        }
-
-    });
-
-});
-</script>
+  </main>
 
 </body>
 </html>
