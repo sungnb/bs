@@ -23,7 +23,10 @@
       color: #222;
     }
 
-    /* 상단 */
+    /* =========================
+       상단
+       ========================= */
+
     .header {
       background: #3f7f4a;
       color: white;
@@ -32,21 +35,26 @@
       font-weight: 700;
     }
 
-    /* 전체 */
+    /* =========================
+       전체
+       ========================= */
+
     .container {
       max-width: 700px;
       margin: 0 auto;
       padding: 18px 12px 40px;
     }
 
-    /* 버튼 영역 */
+    /* =========================
+       메뉴 버튼
+       ========================= */
+
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
-    /* 버튼 */
     .menu-button {
       display: flex;
       align-items: center;
@@ -72,10 +80,7 @@
 
       cursor: pointer;
 
-      transition:
-        transform 0.1s ease,
-        background 0.1s ease,
-        box-shadow 0.1s ease;
+      transition: 0.1s;
     }
 
     .menu-button:hover {
@@ -85,90 +90,106 @@
     .menu-button:active {
       transform: scale(0.96);
       background: #e8f3e9;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
     /* =========================
-       고난[시련] 페이지
+       주제 화면
        ========================= */
 
-    #sufferingPage {
+    #topicPage {
       display: none;
     }
 
-    .back-button {
+    /* 홈으로 돌아가기 */
+
+    .home-button {
       display: inline-block;
 
-      margin-bottom: 16px;
-      padding: 10px 14px;
+      margin-bottom: 18px;
+      padding: 10px 15px;
 
       background: white;
+
       border: 1px solid #d5ded7;
       border-radius: 9px;
 
       color: #28733a;
       font-size: 15px;
       font-weight: 700;
+
       text-decoration: none;
 
       box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
-    .card {
+    .home-button:active {
+      transform: scale(0.97);
+    }
+
+    /* =========================
+       주제 제목
+       ========================= */
+
+    .topic-title {
       background: white;
+
       border-radius: 14px;
-      padding: 22px 20px;
+
+      padding: 20px;
+
       margin-bottom: 16px;
+
+      font-size: 25px;
+      font-weight: 700;
+
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .title {
-      font-size: 23px;
+    /* =========================
+       자료 카드
+       ========================= */
+
+    .data-card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 15px;
+
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .data-title {
+      font-size: 21px;
       font-weight: 700;
-      margin-bottom: 18px;
-    }
 
-    .row {
-      display: flex;
       margin-bottom: 14px;
-      line-height: 1.5;
     }
 
-    .label {
-      width: 75px;
-      flex-shrink: 0;
-      color: #666;
-      font-weight: 600;
-    }
+    /* =========================
+       성구 영역
+       ========================= */
 
-    .value {
-      flex: 1;
-    }
-
-    .type {
-      display: inline-block;
-      background: #d9f4df;
-      color: #28733a;
-      padding: 4px 11px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    /* 성구 미리보기 */
     .bible-section {
-      margin-top: 22px;
+      margin-top: 5px;
+
       padding: 18px;
 
       background: #f7faf7;
+
       border-radius: 12px;
+
       border: 1px solid #e1ebe3;
     }
 
     .bible-label {
       font-size: 16px;
       font-weight: 700;
+
       color: #28733a;
+
       margin-bottom: 12px;
     }
 
@@ -176,39 +197,49 @@
       display: inline-block;
 
       color: #2f7040;
+
       font-size: 20px;
       font-weight: 700;
 
       text-decoration: none;
+
       margin-bottom: 12px;
     }
 
     .bible-title::after {
       content: " ↗";
+
       font-size: 16px;
     }
 
     .bible-text {
       font-size: 17px;
+
       line-height: 1.8;
+
       color: #333;
     }
 
     .bible-button {
       display: block;
+
       width: 100%;
 
       margin-top: 18px;
+
       padding: 14px 16px;
 
       border-radius: 10px;
 
       background: #3f7f4a;
+
       color: white;
 
       font-size: 17px;
       font-weight: 700;
+
       text-align: center;
+
       text-decoration: none;
     }
 
@@ -216,7 +247,55 @@
       transform: scale(0.98);
     }
 
-    /* 휴대폰 */
+    /* =========================
+       링크 자료
+       ========================= */
+
+    .link-button {
+      display: block;
+
+      width: 100%;
+
+      padding: 14px;
+
+      background: #3f7f4a;
+
+      color: white;
+
+      border-radius: 10px;
+
+      font-size: 17px;
+      font-weight: 700;
+
+      text-align: center;
+
+      text-decoration: none;
+    }
+
+    /* =========================
+       자료가 없을 때
+       ========================= */
+
+    .empty-message {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 25px 20px;
+
+      color: #777;
+
+      text-align: center;
+
+      font-size: 16px;
+
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* =========================
+       휴대폰
+       ========================= */
+
     @media (max-width: 480px) {
 
       .header {
@@ -234,25 +313,25 @@
 
       .menu-button {
         min-height: 58px;
+
         font-size: 15px;
+
         padding: 7px 3px;
+
         border-radius: 11px;
       }
 
-      .card {
-        padding: 19px 16px;
+      .topic-title {
+        font-size: 23px;
+        padding: 18px;
       }
 
-      .title {
-        font-size: 21px;
+      .data-card {
+        padding: 17px;
       }
 
-      .row {
-        font-size: 16px;
-      }
-
-      .label {
-        width: 70px;
+      .data-title {
+        font-size: 20px;
       }
 
       .bible-section {
@@ -273,12 +352,18 @@
         padding: 15px;
       }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- 상단 -->
+
+  <!-- ==================================================
+       상단
+       ================================================== -->
+
   <div class="header">
     봉사를 위한 준비
   </div>
@@ -286,250 +371,378 @@
 
   <main class="container">
 
-    <!-- =========================
-         메인 버튼
-         ========================= -->
 
-    <section id="mainPage">
+    <!-- ==================================================
+         홈 화면
+         ================================================== -->
+
+    <section id="homePage">
 
       <div class="menu-grid">
 
+
         <!-- 1줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('대화[칭찬]'); return false;">
           대화[칭찬]
         </a>
 
         <a href="#"
            class="menu-button"
-           onclick="showSuffering(); return false;">
+           onclick="openTopic('고난[시련]'); return false;">
           고난[시련]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('미래[희망]'); return false;">
           미래[희망]
         </a>
 
 
         <!-- 2줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('이름[여호와]'); return false;">
           이름[여호와]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('전파[전도]'); return false;">
           전파[전도]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('예 언'); return false;">
           예 언
         </a>
 
 
         <!-- 3줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('생 일'); return false;">
           생 일
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('죽음[사망]'); return false;">
           죽음[사망]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('부 활'); return false;">
           부 활
         </a>
 
 
         <!-- 4줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('지 옥'); return false;">
           지 옥
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('천국[천당]'); return false;">
           천국[천당]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('왕 국'); return false;">
           왕 국
         </a>
 
 
         <!-- 5줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('정치[중립]'); return false;">
           정치[중립]
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('전 쟁'); return false;">
           전 쟁
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('통치자'); return false;">
           통치자
         </a>
 
 
         <!-- 6줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('크리스마스'); return false;">
           크리스마스
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('십자가'); return false;">
           십자가
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('삼위일체'); return false;">
           삼위일체
         </a>
 
 
         <!-- 7줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('과 학'); return false;">
           과 학
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('수 혈'); return false;">
           수 혈
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('계시록'); return false;">
           계시록
         </a>
 
 
         <!-- 8줄 -->
-        <a href="#" class="menu-button">
+
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('동성애'); return false;">
           동성애
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('안식일'); return false;">
           안식일
         </a>
 
-        <a href="#" class="menu-button">
+        <a href="#"
+           class="menu-button"
+           onclick="openTopic('편지봉사'); return false;">
           편지봉사
         </a>
 
+
       </div>
 
     </section>
 
 
-    <!-- =========================
-         고난[시련]
-         ========================= -->
 
-    <section id="sufferingPage">
+    <!-- ==================================================
+         주제 화면
+         ================================================== -->
+
+    <section id="topicPage">
+
+
+      <!-- 홈으로 돌아가기 -->
 
       <a
         href="#"
-        class="back-button"
-        onclick="showMain(); return false;"
+        class="home-button"
+        onclick="goHome(); return false;"
       >
-        ← 성구 자료로 돌아가기
+        ← 홈으로 돌아가기
       </a>
 
 
-      <div class="card">
+      <!-- 선택한 주제 -->
 
-        <div class="title">
-          고난에대한 성구
-        </div>
-
-
-        <div class="row">
-
-          <div class="label">
-            자료유형
-          </div>
-
-          <div class="value">
-            <span class="type">
-              링크
-            </span>
-          </div>
-
-        </div>
-
-
-        <div class="row">
-
-          <div class="label">
-            설명
-          </div>
-
-          <div class="value">
-            고난과 시련에 대한 말씀
-          </div>
-
-        </div>
-
-
-        <!-- 성구 -->
-
-        <div class="bible-section">
-
-          <div class="bible-label">
-            📖 성구
-          </div>
-
-
-          <a
-            class="bible-title"
-            href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            로마서 5:12
-          </a>
-
-
-          <div class="bible-text">
-
-            그러므로 한 사람을 통해 죄가 세상에 들어오고
-            죄를 통해 죽음이 들어왔으며, 이와 같이 모두가
-            죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
-
-          </div>
-
-
-          <a
-            class="bible-button"
-            href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            성구 보기 ↗
-          </a>
-
-        </div>
-
+      <div
+        id="topicTitle"
+        class="topic-title">
       </div>
 
+
+      <!-- Airtable 자료가 들어갈 곳 -->
+
+      <div id="topicData">
+      </div>
+
+
     </section>
+
 
   </main>
 
 
+
+  <!-- ==================================================
+       JavaScript
+       ================================================== -->
+
   <script>
 
-    /* 고난[시련] 열기 */
-    function showSuffering() {
 
-      document.getElementById("mainPage").style.display = "none";
+    /* 현재 선택한 주제 */
 
-      document.getElementById("sufferingPage").style.display = "block";
+    let currentTopic = "";
+
+
+    /* ==========================================
+       주제 열기
+       ========================================== */
+
+    function openTopic(topic) {
+
+      currentTopic = topic;
+
+
+      /* 홈 숨기기 */
+
+      document.getElementById("homePage").style.display = "none";
+
+
+      /* 주제 화면 보이기 */
+
+      document.getElementById("topicPage").style.display = "block";
+
+
+      /* 주제 제목 */
+
+      document.getElementById("topicTitle").textContent = topic;
+
+
+      /* 자료 표시 */
+
+      showTopicData(topic);
+
+
+      /* 화면 맨 위 */
 
       window.scrollTo(0, 0);
     }
 
 
-    /* 메인으로 돌아가기 */
-    function showMain() {
 
-      document.getElementById("sufferingPage").style.display = "none";
+    /* ==========================================
+       홈으로
+       ========================================== */
 
-      document.getElementById("mainPage").style.display = "block";
+    function goHome() {
+
+      document.getElementById("topicPage").style.display = "none";
+
+      document.getElementById("homePage").style.display = "block";
 
       window.scrollTo(0, 0);
     }
+
+
+
+    /* ==========================================
+       주제별 자료
+       ========================================== */
+
+    function showTopicData(topic) {
+
+      const area = document.getElementById("topicData");
+
+
+      /*
+        현재는 고난[시련] 자료만 실제 입력.
+
+        나머지는 앞으로 Airtable과 연결하면
+        자동으로 이곳에 표시됩니다.
+      */
+
+
+      if (topic === "고난[시련]") {
+
+        area.innerHTML = `
+
+          <div class="data-card">
+
+            <div class="data-title">
+              고난에대한 성구
+            </div>
+
+
+            <div class="bible-section">
+
+              <div class="bible-label">
+                📖 성구
+              </div>
+
+
+              <a
+                class="bible-title"
+                href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                로마서 5:12
+              </a>
+
+
+              <div class="bible-text">
+
+                그러므로 한 사람을 통해 죄가 세상에 들어오고
+                죄를 통해 죽음이 들어왔으며, 이와 같이 모두가
+                죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
+
+              </div>
+
+
+              <a
+                class="bible-button"
+                href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                성구 보기 ↗
+              </a>
+
+            </div>
+
+          </div>
+
+        `;
+
+        return;
+      }
+
+
+      /* ==========================================
+         아직 자료가 없는 주제
+         ========================================== */
+
+      area.innerHTML = `
+
+        <div class="empty-message">
+          이 주제의 자료를 준비하고 있습니다.
+        </div>
+
+      `;
+    }
+
 
   </script>
 
