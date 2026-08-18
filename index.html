@@ -84,7 +84,10 @@
       font-weight: 600;
     }
 
-    /* 성구 미리보기 영역 */
+    /* =========================
+       성구 미리보기
+       ========================= */
+
     .bible-section {
       margin-top: 22px;
       padding: 18px;
@@ -100,6 +103,7 @@
       margin-bottom: 12px;
     }
 
+    /* 성구 제목 */
     .bible-title {
       display: inline-block;
       color: #2f7040;
@@ -118,12 +122,14 @@
       opacity: 0.6;
     }
 
+    /* 성구 본문 */
     .bible-text {
       font-size: 17px;
       line-height: 1.8;
       color: #333;
     }
 
+    /* 성구 보기 버튼 */
     .bible-button {
       display: block;
       width: 100%;
@@ -197,15 +203,27 @@
 
 <body>
 
+  <!-- =========================
+       상단
+       ========================= -->
+
   <div class="header">
     봉사를 위한 준비
   </div>
 
+
   <main class="container">
+
+    <!-- 페이지 제목 -->
 
     <div class="page-title">
       성구 자료
     </div>
+
+
+    <!-- =========================
+         고난[시련] 자료
+         ========================= -->
 
     <div class="card">
 
@@ -213,18 +231,36 @@
         고난에대한 성구
       </div>
 
-      <div class="row">
-        <div class="label">자료유형</div>
-        <div class="value">
-          <span class="type">성구</span>
-        </div>
-      </div>
+
+      <!-- 자료유형 -->
 
       <div class="row">
-        <div class="label">설명</div>
+
+        <div class="label">
+          자료유형
+        </div>
+
+        <div class="value">
+          <span class="type">
+            링크
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- 설명 -->
+
+      <div class="row">
+
+        <div class="label">
+          설명
+        </div>
+
         <div class="value">
           고난과 시련에 대한 말씀
         </div>
+
       </div>
 
 
@@ -238,14 +274,19 @@
           📖 성구
         </div>
 
+
         <!--
-          로마서 5:12를 누르면
-          로마서 5장 전체가 아니라
-          해당 성구로 이동하도록 주소를 설정
+          중요:
+          회원님이 Airtable의 '링크' 필드에
+          입력한 주소와 동일한 주소입니다.
+
+          로마서 전체가 아니라
+          '로마서 5:12'를 검색합니다.
         -->
+
         <a
           class="bible-title"
-          href="https://wol.jw.org/ko/wol/d/r8/lp-ko/1001061145#h=12"
+          href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -253,7 +294,10 @@
         </a>
 
 
-        <!-- 성구 본문 -->
+        <!-- =========================
+             성구 본문
+             ========================= -->
+
         <div class="bible-text">
 
           그러므로 한 사람을 통해 죄가 세상에 들어오고
@@ -263,11 +307,13 @@
         </div>
 
 
-        <!-- 성구 보기 버튼 -->
+        <!-- =========================
+             성구 보기
+             ========================= -->
 
         <a
           class="bible-button"
-          href="https://wol.jw.org/ko/wol/d/r8/lp-ko/1001061145#h=12"
+          href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
           target="_blank"
           rel="noopener noreferrer"
         >
