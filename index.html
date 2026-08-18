@@ -84,10 +84,50 @@
       font-weight: 600;
     }
 
+    /* 성구 영역 */
+    .bible-section {
+      margin-top: 22px;
+      padding: 18px;
+      background: #f7faf7;
+      border-radius: 12px;
+      border: 1px solid #e1ebe3;
+    }
+
+    .bible-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #28733a;
+      margin-bottom: 12px;
+    }
+
+    .bible-title {
+      display: inline-block;
+      color: #2f7040;
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .bible-title::after {
+      content: " ↗";
+      font-size: 16px;
+    }
+
+    .bible-title:active {
+      opacity: 0.6;
+    }
+
+    .bible-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #333;
+    }
+
     .bible-button {
       display: block;
       width: 100%;
-      margin-top: 22px;
+      margin-top: 18px;
       padding: 14px 16px;
       border: none;
       border-radius: 10px;
@@ -134,6 +174,19 @@
         width: 70px;
       }
 
+      .bible-section {
+        padding: 16px;
+      }
+
+      .bible-title {
+        font-size: 19px;
+      }
+
+      .bible-text {
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
       .bible-button {
         font-size: 17px;
         padding: 15px;
@@ -163,7 +216,7 @@
       <div class="row">
         <div class="label">자료유형</div>
         <div class="value">
-          <span class="type">링크</span>
+          <span class="type">성구</span>
         </div>
       </div>
 
@@ -174,22 +227,41 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="label">성구</div>
-        <div class="value">
-          로마서 5:12
-        </div>
-      </div>
+      <!-- 성구 미리보기 -->
+      <div class="bible-section">
 
-      <!-- 성구 링크 -->
-      <a
-        class="bible-button"
-        href="https://wol.jw.org/ko/wol/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        성구 보기 ↗
-      </a>
+        <div class="bible-label">
+          📖 성구
+        </div>
+
+        <!-- 성구 번호를 클릭하면 WOL로 이동 -->
+        <a
+          class="bible-title"
+          href="https://wol.jw.org/ko/wol/b/r8/lp-ko/nwt/45/5"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          로마서 5:12
+        </a>
+
+        <!-- 성구 본문 미리보기 -->
+        <div class="bible-text">
+          그러므로 한 사람을 통해 죄가 세상에 들어오고
+          죄를 통해 죽음이 들어왔으며, 이와 같이 모두가
+          죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
+        </div>
+
+        <!-- 성경 보기 버튼 -->
+        <a
+          class="bible-button"
+          href="https://wol.jw.org/ko/wol/b/r8/lp-ko/nwt/45/5"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          성구 보기 ↗
+        </a>
+
+      </div>
 
     </div>
 
