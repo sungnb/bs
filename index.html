@@ -36,7 +36,7 @@
     }
 
     /* =========================
-       전체
+       전체 영역
        ========================= */
 
     .container {
@@ -46,7 +46,7 @@
     }
 
     /* =========================
-       메뉴 버튼
+       24개 주제 버튼
        ========================= */
 
     .menu-grid {
@@ -131,18 +131,12 @@
        ========================= */
 
     .topic-title {
-      background: white;
+      margin-bottom: 18px;
 
-      border-radius: 14px;
-
-      padding: 20px;
-
-      margin-bottom: 16px;
-
-      font-size: 25px;
+      font-size: 27px;
       font-weight: 700;
 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      line-height: 1.3;
     }
 
     /* =========================
@@ -161,20 +155,11 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .data-title {
-      font-size: 21px;
-      font-weight: 700;
-
-      margin-bottom: 14px;
-    }
-
     /* =========================
        성구 영역
        ========================= */
 
     .bible-section {
-      margin-top: 5px;
-
       padding: 18px;
 
       background: #f7faf7;
@@ -208,8 +193,11 @@
 
     .bible-title::after {
       content: " ↗";
-
       font-size: 16px;
+    }
+
+    .bible-title:active {
+      opacity: 0.6;
     }
 
     .bible-text {
@@ -245,31 +233,6 @@
 
     .bible-button:active {
       transform: scale(0.98);
-    }
-
-    /* =========================
-       링크 자료
-       ========================= */
-
-    .link-button {
-      display: block;
-
-      width: 100%;
-
-      padding: 14px;
-
-      background: #3f7f4a;
-
-      color: white;
-
-      border-radius: 10px;
-
-      font-size: 17px;
-      font-weight: 700;
-
-      text-align: center;
-
-      text-decoration: none;
     }
 
     /* =========================
@@ -322,16 +285,12 @@
       }
 
       .topic-title {
-        font-size: 23px;
-        padding: 18px;
+        font-size: 24px;
+        margin-bottom: 16px;
       }
 
       .data-card {
         padding: 17px;
-      }
-
-      .data-title {
-        font-size: 20px;
       }
 
       .bible-section {
@@ -581,7 +540,7 @@
       </div>
 
 
-      <!-- Airtable 자료가 들어갈 곳 -->
+      <!-- 자료가 표시되는 곳 -->
 
       <div id="topicData">
       </div>
@@ -594,17 +553,7 @@
 
 
 
-  <!-- ==================================================
-       JavaScript
-       ================================================== -->
-
   <script>
-
-
-    /* 현재 선택한 주제 */
-
-    let currentTopic = "";
-
 
     /* ==========================================
        주제 열기
@@ -612,30 +561,13 @@
 
     function openTopic(topic) {
 
-      currentTopic = topic;
-
-
-      /* 홈 숨기기 */
-
       document.getElementById("homePage").style.display = "none";
-
-
-      /* 주제 화면 보이기 */
 
       document.getElementById("topicPage").style.display = "block";
 
-
-      /* 주제 제목 */
-
       document.getElementById("topicTitle").textContent = topic;
 
-
-      /* 자료 표시 */
-
       showTopicData(topic);
-
-
-      /* 화면 맨 위 */
 
       window.scrollTo(0, 0);
     }
@@ -643,7 +575,7 @@
 
 
     /* ==========================================
-       홈으로
+       홈으로 돌아가기
        ========================================== */
 
     function goHome() {
@@ -666,24 +598,15 @@
       const area = document.getElementById("topicData");
 
 
-      /*
-        현재는 고난[시련] 자료만 실제 입력.
-
-        나머지는 앞으로 Airtable과 연결하면
-        자동으로 이곳에 표시됩니다.
-      */
-
+      /* ------------------------------------------
+         고난[시련]
+         ------------------------------------------ */
 
       if (topic === "고난[시련]") {
 
         area.innerHTML = `
 
           <div class="data-card">
-
-            <div class="data-title">
-              고난에대한 성구
-            </div>
-
 
             <div class="bible-section">
 
@@ -730,19 +653,18 @@
       }
 
 
-      /* ==========================================
-         아직 자료가 없는 주제
-         ========================================== */
+      /* ------------------------------------------
+         나머지 주제
+         ------------------------------------------ */
 
       area.innerHTML = `
 
         <div class="empty-message">
-          이 주제의 자료를 준비하고 있습니다.
+          아직 등록된 자료가 없습니다.
         </div>
 
       `;
     }
-
 
   </script>
 
