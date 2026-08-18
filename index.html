@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>성구 자료</title>
+  <title>봉사를 위한 준비</title>
 
   <style>
     * {
@@ -23,6 +23,7 @@
       color: #222;
     }
 
+    /* 상단 */
     .header {
       background: #3f7f4a;
       color: white;
@@ -31,16 +32,86 @@
       font-weight: 700;
     }
 
+    /* 전체 */
     .container {
       max-width: 700px;
       margin: 0 auto;
-      padding: 18px 14px 40px;
+      padding: 18px 12px 40px;
     }
 
-    .page-title {
-      font-size: 27px;
+    /* 버튼 영역 */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    /* 버튼 */
+    .menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 62px;
+      padding: 8px 4px;
+
+      background: white;
+
+      border: 1px solid #d5ded7;
+      border-radius: 12px;
+
+      color: #222;
+      font-size: 17px;
       font-weight: 700;
-      margin: 8px 4px 18px;
+
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+
+      box-shadow: 0 3px 7px rgba(0,0,0,0.10);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.1s ease,
+        background 0.1s ease,
+        box-shadow 0.1s ease;
+    }
+
+    .menu-button:hover {
+      background: #f1f7f2;
+    }
+
+    .menu-button:active {
+      transform: scale(0.96);
+      background: #e8f3e9;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* =========================
+       고난[시련] 페이지
+       ========================= */
+
+    #sufferingPage {
+      display: none;
+    }
+
+    .back-button {
+      display: inline-block;
+
+      margin-bottom: 16px;
+      padding: 10px 14px;
+
+      background: white;
+      border: 1px solid #d5ded7;
+      border-radius: 9px;
+
+      color: #28733a;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
     .card {
@@ -84,13 +155,11 @@
       font-weight: 600;
     }
 
-    /* =========================
-       성구 미리보기
-       ========================= */
-
+    /* 성구 미리보기 */
     .bible-section {
       margin-top: 22px;
       padding: 18px;
+
       background: #f7faf7;
       border-radius: 12px;
       border: 1px solid #e1ebe3;
@@ -103,12 +172,13 @@
       margin-bottom: 12px;
     }
 
-    /* 성구 제목 */
     .bible-title {
       display: inline-block;
+
       color: #2f7040;
       font-size: 20px;
       font-weight: 700;
+
       text-decoration: none;
       margin-bottom: 12px;
     }
@@ -118,27 +188,24 @@
       font-size: 16px;
     }
 
-    .bible-title:active {
-      opacity: 0.6;
-    }
-
-    /* 성구 본문 */
     .bible-text {
       font-size: 17px;
       line-height: 1.8;
       color: #333;
     }
 
-    /* 성구 보기 버튼 */
     .bible-button {
       display: block;
       width: 100%;
+
       margin-top: 18px;
       padding: 14px 16px;
-      border: none;
+
       border-radius: 10px;
+
       background: #3f7f4a;
       color: white;
+
       font-size: 17px;
       font-weight: 700;
       text-align: center;
@@ -149,6 +216,7 @@
       transform: scale(0.98);
     }
 
+    /* 휴대폰 */
     @media (max-width: 480px) {
 
       .header {
@@ -160,8 +228,15 @@
         padding: 14px 10px 30px;
       }
 
-      .page-title {
-        font-size: 24px;
+      .menu-grid {
+        gap: 8px;
+      }
+
+      .menu-button {
+        min-height: 58px;
+        font-size: 15px;
+        padding: 7px 3px;
+        border-radius: 11px;
       }
 
       .card {
@@ -203,10 +278,7 @@
 
 <body>
 
-  <!-- =========================
-       상단
-       ========================= -->
-
+  <!-- 상단 -->
   <div class="header">
     봉사를 위한 준비
   </div>
@@ -214,117 +286,252 @@
 
   <main class="container">
 
-    <!-- 페이지 제목 -->
+    <!-- =========================
+         메인 버튼
+         ========================= -->
 
-    <div class="page-title">
-      성구 자료
-    </div>
+    <section id="mainPage">
+
+      <div class="menu-grid">
+
+        <!-- 1줄 -->
+        <a href="#" class="menu-button">
+          대화[칭찬]
+        </a>
+
+        <a href="#"
+           class="menu-button"
+           onclick="showSuffering(); return false;">
+          고난[시련]
+        </a>
+
+        <a href="#" class="menu-button">
+          미래[희망]
+        </a>
+
+
+        <!-- 2줄 -->
+        <a href="#" class="menu-button">
+          이름[여호와]
+        </a>
+
+        <a href="#" class="menu-button">
+          전파[전도]
+        </a>
+
+        <a href="#" class="menu-button">
+          예 언
+        </a>
+
+
+        <!-- 3줄 -->
+        <a href="#" class="menu-button">
+          생 일
+        </a>
+
+        <a href="#" class="menu-button">
+          죽음[사망]
+        </a>
+
+        <a href="#" class="menu-button">
+          부 활
+        </a>
+
+
+        <!-- 4줄 -->
+        <a href="#" class="menu-button">
+          지 옥
+        </a>
+
+        <a href="#" class="menu-button">
+          천국[천당]
+        </a>
+
+        <a href="#" class="menu-button">
+          왕 국
+        </a>
+
+
+        <!-- 5줄 -->
+        <a href="#" class="menu-button">
+          정치[중립]
+        </a>
+
+        <a href="#" class="menu-button">
+          전 쟁
+        </a>
+
+        <a href="#" class="menu-button">
+          통치자
+        </a>
+
+
+        <!-- 6줄 -->
+        <a href="#" class="menu-button">
+          크리스마스
+        </a>
+
+        <a href="#" class="menu-button">
+          십자가
+        </a>
+
+        <a href="#" class="menu-button">
+          삼위일체
+        </a>
+
+
+        <!-- 7줄 -->
+        <a href="#" class="menu-button">
+          과 학
+        </a>
+
+        <a href="#" class="menu-button">
+          수 혈
+        </a>
+
+        <a href="#" class="menu-button">
+          계시록
+        </a>
+
+
+        <!-- 8줄 -->
+        <a href="#" class="menu-button">
+          동성애
+        </a>
+
+        <a href="#" class="menu-button">
+          안식일
+        </a>
+
+        <a href="#" class="menu-button">
+          편지봉사
+        </a>
+
+      </div>
+
+    </section>
 
 
     <!-- =========================
-         고난[시련] 자료
+         고난[시련]
          ========================= -->
 
-    <div class="card">
+    <section id="sufferingPage">
 
-      <div class="title">
-        고난에대한 성구
-      </div>
-
-
-      <!-- 자료유형 -->
-
-      <div class="row">
-
-        <div class="label">
-          자료유형
-        </div>
-
-        <div class="value">
-          <span class="type">
-            링크
-          </span>
-        </div>
-
-      </div>
+      <a
+        href="#"
+        class="back-button"
+        onclick="showMain(); return false;"
+      >
+        ← 성구 자료로 돌아가기
+      </a>
 
 
-      <!-- 설명 -->
+      <div class="card">
 
-      <div class="row">
-
-        <div class="label">
-          설명
-        </div>
-
-        <div class="value">
-          고난과 시련에 대한 말씀
-        </div>
-
-      </div>
-
-
-      <!-- =========================
-           성구 미리보기
-           ========================= -->
-
-      <div class="bible-section">
-
-        <div class="bible-label">
-          📖 성구
+        <div class="title">
+          고난에대한 성구
         </div>
 
 
-        <!--
-          중요:
-          회원님이 Airtable의 '링크' 필드에
-          입력한 주소와 동일한 주소입니다.
+        <div class="row">
 
-          로마서 전체가 아니라
-          '로마서 5:12'를 검색합니다.
-        -->
+          <div class="label">
+            자료유형
+          </div>
 
-        <a
-          class="bible-title"
-          href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          로마서 5:12
-        </a>
-
-
-        <!-- =========================
-             성구 본문
-             ========================= -->
-
-        <div class="bible-text">
-
-          그러므로 한 사람을 통해 죄가 세상에 들어오고
-          죄를 통해 죽음이 들어왔으며, 이와 같이 모두가
-          죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
+          <div class="value">
+            <span class="type">
+              링크
+            </span>
+          </div>
 
         </div>
 
 
-        <!-- =========================
-             성구 보기
-             ========================= -->
+        <div class="row">
 
-        <a
-          class="bible-button"
-          href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          성구 보기 ↗
-        </a>
+          <div class="label">
+            설명
+          </div>
+
+          <div class="value">
+            고난과 시련에 대한 말씀
+          </div>
+
+        </div>
+
+
+        <!-- 성구 -->
+
+        <div class="bible-section">
+
+          <div class="bible-label">
+            📖 성구
+          </div>
+
+
+          <a
+            class="bible-title"
+            href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            로마서 5:12
+          </a>
+
+
+          <div class="bible-text">
+
+            그러므로 한 사람을 통해 죄가 세상에 들어오고
+            죄를 통해 죽음이 들어왔으며, 이와 같이 모두가
+            죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
+
+          </div>
+
+
+          <a
+            class="bible-button"
+            href="https://wol.jw.org/ko/wol/l/r8/lp-ko?q=%EB%A1%9C%EB%A7%88%EC%84%9C+5%3A12"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            성구 보기 ↗
+          </a>
+
+        </div>
 
       </div>
 
-    </div>
+    </section>
 
   </main>
+
+
+  <script>
+
+    /* 고난[시련] 열기 */
+    function showSuffering() {
+
+      document.getElementById("mainPage").style.display = "none";
+
+      document.getElementById("sufferingPage").style.display = "block";
+
+      window.scrollTo(0, 0);
+    }
+
+
+    /* 메인으로 돌아가기 */
+    function showMain() {
+
+      document.getElementById("sufferingPage").style.display = "none";
+
+      document.getElementById("mainPage").style.display = "block";
+
+      window.scrollTo(0, 0);
+    }
+
+  </script>
 
 </body>
 </html>
