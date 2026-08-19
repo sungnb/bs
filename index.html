@@ -37,7 +37,7 @@ body {
     padding: 18px 12px 40px;
 }
 
-/* 24개 메뉴 */
+/* 메뉴 */
 
 .menu-grid {
     display: grid;
@@ -140,6 +140,27 @@ body {
     text-decoration: none;
 }
 
+/* 성구 본문 */
+
+.bible-text {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #f5f7f6;
+
+    border-radius: 10px;
+
+    color: #333;
+
+    font-size: 16px;
+    line-height: 1.8;
+
+    text-align: left;
+}
+
+/* 성구 보기 */
+
 .bible-button {
     display: block;
 
@@ -156,15 +177,6 @@ body {
 
     font-size: 16px;
     font-weight: 700;
-}
-
-/* 주제 화면에서는 제목 숨김 */
-body.topic-mode .header {
-    display: none;
-}
-
-body.topic-mode .home-button {
-    display: inline-block;
 }
 
 /* 링크 */
@@ -186,17 +198,6 @@ body.topic-mode .home-button {
 
     font-size: 16px;
     font-weight: 700;
-}
-
-/* 이미지 */
-
-.image-box img {
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    border-radius: 12px;
 }
 
 /* 로딩 */
@@ -244,6 +245,11 @@ body.topic-mode .home-button {
     .topic-title {
         font-size: 24px;
     }
+
+    .bible-text {
+        font-size: 15px;
+        line-height: 1.75;
+    }
 }
 </style>
 </head>
@@ -264,99 +270,147 @@ body.topic-mode .home-button {
 
 <div class="menu-grid">
 
-<a class="menu-button" href="#" onclick="openTopic('대화[칭찬]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('대화[칭찬]');return false;">
    대화[칭찬]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('고난[시련]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('고난[시련]');return false;">
    고난[시련]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('미래[희망]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('미래[희망]');return false;">
    미래[희망]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('이름[여호와]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('이름[여호와]');return false;">
    이름[여호와]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('전파[전도]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('전파[전도]');return false;">
    전파[전도]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('예 언');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('예 언');return false;">
    예 언
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('생 일');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('생 일');return false;">
    생 일
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('죽음[사망]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('죽음[사망]');return false;">
    죽음[사망]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('부 활');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('부 활');return false;">
    부 활
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('지 옥');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('지 옥');return false;">
    지 옥
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('천국[천당]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('천국[천당]');return false;">
    천국[천당]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('왕 국');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('왕 국');return false;">
    왕 국
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('정치[중립]');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('정치[중립]');return false;">
    정치[중립]
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('전 쟁');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('전 쟁');return false;">
    전 쟁
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('통치자');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('통치자');return false;">
    통치자
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('크리스마스');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('크리스마스');return false;">
    크리스마스
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('십자가');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('십자가');return false;">
    십자가
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('삼위일체');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('삼위일체');return false;">
    삼위일체
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('과 학');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('과 학');return false;">
    과 학
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('수 혈');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('수 혈');return false;">
    수 혈
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('계시록');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('계시록');return false;">
    계시록
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('동성애');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('동성애');return false;">
    동성애
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('안식일');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('안식일');return false;">
    안식일
 </a>
 
-<a class="menu-button" href="#" onclick="openTopic('편지봉사');return false;">
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('편지봉사');return false;">
    편지봉사
 </a>
 
@@ -390,17 +444,17 @@ body.topic-mode .home-button {
 
 <script>
 
-/* ==================================================
-   Cloudflare Worker
-   ================================================== */
+/* ==========================================
+   Cloudflare Worker 주소
+   ========================================== */
 
 const API_URL =
     "https://seoulbukbu.s01021319376.workers.dev/";
 
 
-/* ==================================================
+/* ==========================================
    HTML 안전 처리
-   ================================================== */
+   ========================================== */
 
 function escapeHTML(value) {
 
@@ -420,117 +474,163 @@ function escapeHTML(value) {
 }
 
 
-/* ==================================================
+/* ==========================================
    홈
-   ================================================== */
+   ========================================== */
 
 function goHome() {
 
-    document.body.classList.remove("topic-mode");
+    document.body.classList.remove(
+        "topic-mode"
+    );
 
-    document.getElementById("topicPage").style.display =
-        "none";
+    document.getElementById(
+        "topicPage"
+    ).style.display = "none";
 
-    document.getElementById("homePage").style.display =
-        "block";
+    document.getElementById(
+        "homePage"
+    ).style.display = "block";
 
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
 }
 
 
-/* ==================================================
+/* ==========================================
    주제 열기
-   ================================================== */
+   ========================================== */
 
 async function openTopic(topic) {
 
-    document.getElementById("homePage").style.display =
-        "none";
+    document.getElementById(
+        "homePage"
+    ).style.display = "none";
 
-    document.getElementById("topicPage").style.display =
-        "block";
+    document.getElementById(
+        "topicPage"
+    ).style.display = "block";
 
-    document.body.classList.add("topic-mode");
+    document.body.classList.add(
+        "topic-mode"
+    );
 
-    document.getElementById("topicTitle").textContent =
-        topic;
+    document.getElementById(
+        "topicTitle"
+    ).textContent = topic;
 
-    document.getElementById("topicData").innerHTML = `
+    document.getElementById(
+        "topicData"
+    ).innerHTML = `
         <div class="loading">
             자료를 불러오는 중입니다...
         </div>
     `;
 
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
 
     await loadData(topic);
 }
 
 
-/* ==================================================
-   Worker → Airtable
-   ================================================== */
+/* ==========================================
+   Worker 자료 가져오기
+   ========================================== */
 
 async function loadData(topic) {
 
     const area =
-        document.getElementById("topicData");
+        document.getElementById(
+            "topicData"
+        );
 
     try {
 
         const response =
             await fetch(API_URL, {
-                method: "GET",
                 cache: "no-store"
             });
 
+
         if (!response.ok) {
+
             throw new Error(
-                "Worker 연결 오류 : " +
-                response.status
+                "Worker 응답 오류"
             );
         }
+
 
         const data =
             await response.json();
 
-        if (!data.success) {
+
+        if (
+            !data.success ||
+            !Array.isArray(data.records)
+        ) {
+
             throw new Error(
-                "Airtable 자료를 가져오지 못했습니다."
+                "자료 형식이 올바르지 않습니다."
             );
         }
 
+
+        /*
+         * 현재 선택한 메뉴만 표시
+         */
+
         const records =
-            Array.isArray(data.records)
-                ? data.records
-                : [];
+            data.records.filter(
+                function(record) {
+
+                    const menu =
+                        field(
+                            record.fields,
+                            "메뉴"
+                        );
+
+                    return (
+                        menu === topic
+                    );
+                }
+            );
 
 
         /*
-         * Airtable의 '메뉴' 값이
-         * 현재 선택한 주제와 같은 자료만 가져옵니다.
+         * Worker에서 이미
+         * Airtable 순서대로 정렬되어 있습니다.
+         *
+         * 안전하게 한 번 더 정렬합니다.
          */
 
-        const topicRecords =
-            records.filter(function(record) {
+        records.sort(
+            function(a,b) {
 
-                const fields =
-                    record.fields || {};
+                const aOrder =
+                    Number(
+                        field(
+                            a.fields,
+                            "순서"
+                        )
+                    ) || 999999;
 
-                const menu =
-                    getField(fields, "메뉴");
+                const bOrder =
+                    Number(
+                        field(
+                            b.fields,
+                            "순서"
+                        )
+                    ) || 999999;
 
-                return String(menu).trim() ===
-                    String(topic).trim();
-            });
+                return aOrder - bOrder;
+            }
+        );
 
 
-        if (!topicRecords.length) {
+        if (!records.length) {
 
             area.innerHTML = `
                 <div class="empty">
-                    ${escapeHTML(topic)}
-                    자료가 없습니다.
+                    아직 준비 중인 자료입니다.
                 </div>
             `;
 
@@ -538,8 +638,7 @@ async function loadData(topic) {
         }
 
 
-        renderRecords(topicRecords);
-
+        renderRecords(records);
 
     } catch (error) {
 
@@ -547,76 +646,36 @@ async function loadData(topic) {
 
         area.innerHTML = `
             <div class="error">
-                자료를 불러오지 못했습니다.<br><br>
-                ${escapeHTML(error.message)}
+                자료를 불러오지 못했습니다.
             </div>
         `;
     }
 }
 
 
-/* ==================================================
-   Airtable 필드값
-   ================================================== */
+/* ==========================================
+   Airtable 필드
+   ========================================== */
 
-function getField(fields, name) {
+function field(record, name) {
 
-    if (
-        !fields ||
-        fields[name] === undefined ||
-        fields[name] === null
-    ) {
+    if (!record) {
         return "";
     }
 
-    const value = fields[name];
-
-    if (typeof value === "string") {
-        return value;
-    }
-
-    if (typeof value === "number") {
-        return String(value);
-    }
-
-    if (Array.isArray(value)) {
-
-        return value.map(function(item) {
-
-            if (typeof item === "string") {
-                return item;
-            }
-
-            if (item && item.name) {
-                return item.name;
-            }
-
-            if (item && item.url) {
-                return item.url;
-            }
-
-            return "";
-
-        }).join(", ");
-    }
-
-    if (typeof value === "object") {
-
-        return (
-            value.name ||
-            value.url ||
-            value.text ||
-            ""
-        );
+    if (
+        record[name] !== undefined
+    ) {
+        return record[name];
     }
 
     return "";
 }
 
 
-/* ==================================================
-   URL
-   ================================================== */
+/* ==========================================
+   링크 URL
+   ========================================== */
 
 function getURL(value) {
 
@@ -624,17 +683,23 @@ function getURL(value) {
         return "";
     }
 
-    if (typeof value === "string") {
+    if (
+        typeof value === "string"
+    ) {
         return value;
     }
 
-    if (Array.isArray(value)) {
+    if (
+        Array.isArray(value)
+    ) {
 
         if (!value.length) {
             return "";
         }
 
-        if (typeof value[0] === "string") {
+        if (
+            typeof value[0] === "string"
+        ) {
             return value[0];
         }
 
@@ -651,9 +716,9 @@ function getURL(value) {
 }
 
 
-/* ==================================================
-   JW 성구 주소
-   ================================================== */
+/* ==========================================
+   성구 검색 주소
+   ========================================== */
 
 function bibleURL(reference) {
 
@@ -666,115 +731,334 @@ function bibleURL(reference) {
 }
 
 
-/* ==================================================
+/* ==========================================
+   Worker의 bibleText 정리
+   ========================================== */
+
+function cleanBibleText(text) {
+
+    if (!text) {
+        return "";
+    }
+
+
+    let result =
+        String(text);
+
+
+    /*
+     * WOL 페이지 앞부분 제거
+     */
+
+    const startMarker =
+        "신세계역 성경 (연구용)";
+
+
+    const startIndex =
+        result.indexOf(
+            startMarker
+        );
+
+
+    if (
+        startIndex !== -1
+    ) {
+
+        result =
+            result.substring(
+                startIndex +
+                startMarker.length
+            );
+    }
+
+
+    /*
+     * WOL 페이지 뒷부분 제거
+     */
+
+    const endMarkers = [
+
+        "한국어 워치 타워 출판물",
+
+        "한국어 워치 타워",
+
+        "Copyright",
+
+        "저작권",
+
+        "이용 약관",
+
+        "개인 정보 보호",
+
+        "JW.ORG"
+
+    ];
+
+
+    let end =
+        result.length;
+
+
+    for (
+        const marker of endMarkers
+    ) {
+
+        const index =
+            result.indexOf(
+                marker
+            );
+
+        if (
+            index !== -1 &&
+            index < end
+        ) {
+
+            end = index;
+        }
+    }
+
+
+    result =
+        result.substring(
+            0,
+            end
+        );
+
+
+    /*
+     * HTML 엔티티
+     */
+
+    result =
+        result
+            .replace(
+                /&copy;/gi,
+                ""
+            )
+            .replace(
+                /&amp;/gi,
+                "&"
+            )
+            .replace(
+                /&quot;/gi,
+                '"'
+            )
+            .replace(
+                /&#39;/gi,
+                "'"
+            );
+
+
+    /*
+     * 각주 표시 제거
+     */
+
+    result =
+        result
+            .replace(
+                /\s+\*/g,
+                ""
+            )
+            .replace(
+                /\s+\+/g,
+                ""
+            )
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
+
+
+    return result;
+}
+
+
+/* ==========================================
    자료 표시
-   ================================================== */
+   ========================================== */
 
 function renderRecords(records) {
 
     const area =
-        document.getElementById("topicData");
+        document.getElementById(
+            "topicData"
+        );
 
     let html = "";
 
 
-    records.forEach(function(record) {
+    records.forEach(
+        function(record) {
 
-        const fields =
-            record.fields || {};
-
-        const type =
-            getField(fields, "자료명");
-
-        const title =
-            getField(fields, "기록명");
-
-        const bible =
-            getField(fields, "성구");
-
-        const link =
-            getURL(fields["링크"]);
+            const fields =
+                record.fields || {};
 
 
-        /* ==========================================
-           링크
-           ========================================== */
-
-        if (
-            type.trim() === "링크" &&
-            link
-        ) {
-
-            html += `
-                <div class="data-card">
-
-                    ${
-                        title
-                        ? `
-                        <div style="
-                            margin-bottom:12px;
-                            font-size:18px;
-                            font-weight:700;
-                            line-height:1.45;">
-                            ${escapeHTML(title)}
-                        </div>
-                        `
-                        : ""
-                    }
-
-                    <a
-                        class="link-button"
-                        href="${escapeHTML(link)}"
-                        target="_blank"
-                        rel="noopener noreferrer">
-
-                        자료 보기 ↗
-
-                    </a>
-
-                </div>
-            `;
-
-            return;
-        }
+            const type =
+                field(
+                    fields,
+                    "자료명"
+                );
 
 
-        /* ==========================================
-           성구
-           ========================================== */
+            const title =
+                field(
+                    fields,
+                    "기록명"
+                );
 
-        if (
-            type.trim() === "성구" &&
-            bible
-        ) {
 
-            const url =
-                bibleURL(bible);
+            const bible =
+                field(
+                    fields,
+                    "성구"
+                );
 
-            html += `
-                <div class="data-card">
 
-                    <div class="bible-title">
-                        ${escapeHTML(bible)}
+            const link =
+                getURL(
+                    field(
+                        fields,
+                        "링크"
+                    )
+                );
+
+
+            /*
+             * =================================
+             * 링크
+             * =================================
+             */
+
+            if (
+                type === "링크" &&
+                link
+            ) {
+
+                html += `
+                    <div class="data-card">
+
+                        ${
+                            title
+                            ? `
+                            <div style="
+                                margin-bottom:12px;
+                                font-size:18px;
+                                font-weight:700;
+                                line-height:1.45;">
+                                
+                                ${escapeHTML(title)}
+
+                            </div>
+                            `
+                            : ""
+                        }
+
+                        <a
+                            class="link-button"
+                            href="${escapeHTML(link)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            자료 보기 ↗
+
+                        </a>
+
                     </div>
+                `;
 
-                    <a
-                        class="bible-button"
-                        href="${escapeHTML(url)}"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                return;
+            }
 
-                        성구 보기
 
-                    </a>
+            /*
+             * =================================
+             * 성구
+             * =================================
+             */
 
-                </div>
-            `;
+            if (
+                type === "성구" &&
+                bible
+            ) {
 
-            return;
+                const safeBible =
+                    escapeHTML(
+                        bible
+                    );
+
+
+                /*
+                 * Worker에서 가져온 본문
+                 */
+
+                const bibleText =
+                    cleanBibleText(
+                        record.bibleText
+                    );
+
+
+                /*
+                 * Worker가 만든 WOL 주소
+                 */
+
+                const url =
+                    record.bibleUrl ||
+                    bibleURL(bible);
+
+
+                html += `
+                    <div class="data-card">
+
+                        <div class="bible-title">
+
+                            ${safeBible}
+
+                        </div>
+
+
+                        ${
+                            bibleText
+                            ? `
+                            <div class="bible-text">
+
+                                ${escapeHTML(
+                                    bibleText
+                                )}
+
+                            </div>
+                            `
+                            : `
+                            <div style="
+                                margin-top:15px;
+                                color:#777;
+                                font-size:14px;">
+                                
+                                성구 내용을 불러오지 못했습니다.
+
+                            </div>
+                            `
+                        }
+
+
+                        <a
+                            class="bible-button"
+                            href="${escapeHTML(url)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            성구 보기
+
+                        </a>
+
+                    </div>
+                `;
+
+            }
+
         }
-
-    });
+    );
 
 
     if (!html) {
@@ -787,7 +1071,8 @@ function renderRecords(records) {
     }
 
 
-    area.innerHTML = html;
+    area.innerHTML =
+        html;
 }
 
 </script>
