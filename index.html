@@ -434,489 +434,128 @@ body {
 
 <script>
 
-/*
-==================================================
-Airtable 중간 연결 주소
-==================================================
+/* ==================================================
+   고난[시련] 테스트 버전
+   - Cloudflare Worker 사용 안 함
+   - Airtable API 토큰 사용 안 함
+   - 우선 화면/링크 작동을 확인하기 위한 테스트 자료
+   ================================================== */
 
-여기에 Cloudflare Worker 주소를 넣습니다.
-
-예:
-
-const API_URL =
-"https://snb-airtable.xxxxx.workers.dev";
-
-지금은 아직 Worker를 만들지 않았으므로
-빈 상태로 둡니다.
-==================================================
-*/
-
-const API_URL =
-"여기에_중간연결주소";
-
-
-/* =========================
-   HTML 안전 처리
-   ========================= */
+const testData = {
+    "고난[시련]": [
+        { 기록명:"고난[전도지]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013410" },
+        { 기록명:"우리가 겪는 고난에 대한 책임이 하느님에게 있습니까? [성경 질문과 대답]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/502012504" },
+        { 기록명:"", 자료명:"성구", 성구:"요한1서 5:19", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"요한1서 3:8", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"로마서 5:12", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"로마서 3:23", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"전도서 9:11", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"야고보서 1:13-15", 링크:"" },
+        { 기록명:"", 자료명:"성구", 성구:"창세기 2:17", 링크:"" },
+        { 기록명:"지배[전도지]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013400" },
+        { 기록명:"이토록 고난이 많은 이유가 무엇입니까? [깨 11/7]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/102011242" }
+    ]
+};
 
 function escapeHTML(value) {
-
-    if (value === null ||
-        value === undefined) {
-        return "";
-    }
-
+    if (value === null || value === undefined) return "";
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
 
-
-/* =========================
-   홈
-   ========================= */
-
 function goHome() {
-
-    document.getElementById(
-        "topicPage"
-    ).style.display = "none";
-
-    document.getElementById(
-        "homePage"
-    ).style.display = "block";
-
+    document.getElementById("topicPage").style.display = "none";
+    document.getElementById("homePage").style.display = "block";
     window.scrollTo(0,0);
 }
-
-
-/* =========================
-   주제 열기
-   ========================= */
 
 async function openTopic(topic) {
-
-    document.getElementById(
-        "homePage"
-    ).style.display = "none";
-
-    document.getElementById(
-        "topicPage"
-    ).style.display = "block";
-
-    document.getElementById(
-        "topicTitle"
-    ).textContent = topic;
-
-    document.getElementById(
-        "topicData"
-    ).innerHTML = `
-        <div class="loading">
-            자료를 불러오는 중입니다...
-        </div>
-    `;
-
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("topicPage").style.display = "block";
+    document.getElementById("topicTitle").textContent = topic;
+    document.getElementById("topicData").innerHTML =
+        `<div class="loading">자료를 불러오는 중입니다...</div>`;
     window.scrollTo(0,0);
-
-    await loadAirtableData(topic);
+    await loadData(topic);
 }
 
+async function loadData(topic) {
+    const area = document.getElementById("topicData");
+    const records = testData[topic] || [];
 
-/* =========================
-   Airtable 자료 가져오기
-   ========================= */
-
-async function loadAirtableData(topic) {
-
-    const area =
-        document.getElementById(
-            "topicData"
-        );
-
-    try {
-
-        /*
-        중간 연결 주소로:
-
-        ?menu=고난%5B시련%5D
-
-        를 전달합니다.
-        */
-
-        const url =
-            API_URL +
-            "?menu=" +
-            encodeURIComponent(topic);
-
-
-        const response =
-            await fetch(url, {
-                method: "GET",
-                cache: "no-store"
-            });
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-        }
-
-
-        const data =
-            await response.json();
-
-
-        const records =
-            Array.isArray(data)
-            ? data
-            : data.records;
-
-
-        if (!records ||
-            records.length === 0) {
-
-            area.innerHTML = `
-                <div class="empty">
-                    등록된 자료가 없습니다.
-                </div>
-            `;
-
-            return;
-        }
-
-
-        renderRecords(records);
-
-
-    } catch(error) {
-
-        console.error(error);
-
-        area.innerHTML = `
-            <div class="error">
-                자료를 불러오지 못했습니다.
-                <br><br>
-                잠시 후 다시 시도해 주세요.
-            </div>
-        `;
+    if (!records.length) {
+        area.innerHTML = `<div class="empty">등록된 자료가 없습니다.</div>`;
+        return;
     }
+
+    renderRecords(records);
 }
-
-
-/* =========================
-   Airtable 값 가져오기
-   ========================= */
-
-function field(record, name) {
-
-    if (record[name] !== undefined) {
-        return record[name];
-    }
-
-    if (record.fields &&
-        record.fields[name] !== undefined) {
-        return record.fields[name];
-    }
-
-    return "";
-}
-
-
-/* =========================
-   URL 가져오기
-   ========================= */
-
-function getURL(value) {
-
-    if (!value) {
-        return "";
-    }
-
-    if (typeof value === "string") {
-        return value;
-    }
-
-    if (Array.isArray(value)) {
-
-        if (!value.length) {
-            return "";
-        }
-
-        if (typeof value[0] === "string") {
-            return value[0];
-        }
-
-        if (value[0].url) {
-            return value[0].url;
-        }
-    }
-
-    if (value.url) {
-        return value.url;
-    }
-
-    return "";
-}
-
-
-/* =========================
-   이미지 가져오기
-   ========================= */
-
-function getImage(value) {
-
-    if (!value) {
-        return "";
-    }
-
-    if (typeof value === "string") {
-        return value;
-    }
-
-    if (Array.isArray(value)) {
-
-        if (!value.length) {
-            return "";
-        }
-
-        if (value[0].url) {
-            return value[0].url;
-        }
-    }
-
-    if (value.url) {
-        return value.url;
-    }
-
-    return "";
-}
-
-
-/* =========================
-   성구 링크
-   ========================= */
 
 function bibleURL(reference) {
-
-    return (
-        "https://wol.jw.org/ko/wol/l/r8/lp-ko?q=" +
-        encodeURIComponent(reference)
-    );
+    return "https://wol.jw.org/ko/wol/l/r8/lp-ko?q=" +
+           encodeURIComponent(reference);
 }
 
-
-/* =========================
-   자료 표시
-   ========================= */
-
 function renderRecords(records) {
-
-    const area =
-        document.getElementById(
-            "topicData"
-        );
-
-
+    const area = document.getElementById("topicData");
     let links = "";
     let bibles = "";
-    let images = "";
-
 
     records.forEach(function(record) {
+        const typeName = record.자료명 || "";
+        const title = record.기록명 || "";
+        const bible = record.성구 || "";
+        const link = record.링크 || "";
 
-        const type =
-            field(record,"자료명");
-
-
-        /*
-        Single select가
-        객체로 넘어오는 경우
-        */
-
-        let typeName = "";
-
-        if (typeof type === "string") {
-
-            typeName = type;
-
-        } else if (
-            type &&
-            type.name
-        ) {
-
-            typeName = type.name;
-        }
-
-
-        const bible =
-            field(record,"성구");
-
-
-        const link =
-            getURL(
-                field(record,"링크")
-            );
-
-
-        const image =
-            getImage(
-                field(record,"이미지")
-            );
-
-
-        /*
-        링크
-        */
-
-        if (
-            typeName === "링크" &&
-            link
-        ) {
-
+        if (typeName === "링크" && link) {
             links += `
                 <div class="data-card">
-                    <a
-                      class="link-button"
-                      href="${escapeHTML(link)}"
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      자료 보기 ↗
+                    ${title ? `<div style="margin-bottom:12px;font-size:18px;font-weight:700;line-height:1.45;">
+                        ${escapeHTML(title)}
+                    </div>` : ""}
+                    <a class="link-button"
+                       href="${escapeHTML(link)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       자료 보기 ↗
                     </a>
-                </div>
-            `;
+                </div>`;
         }
 
-
-        /*
-        성구
-        */
-
-        if (
-            typeName === "성구" &&
-            bible
-        ) {
-
-            const safeBible =
-                escapeHTML(bible);
-
-
-            const url =
-                link ||
-                bibleURL(bible);
-
-
+        if (typeName === "성구" && bible) {
+            const url = link || bibleURL(bible);
             bibles += `
                 <div class="data-card">
-
-                    <a
-                      class="bible-title"
-                      href="${escapeHTML(url)}"
-                      target="_blank"
-                      rel="noopener noreferrer">
-
-                      ${safeBible}
-
+                    <a class="bible-title"
+                       href="${escapeHTML(url)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       ${escapeHTML(bible)}
                     </a>
-
-                    <a
-                      class="bible-button"
-                      href="${escapeHTML(url)}"
-                      target="_blank"
-                      rel="noopener noreferrer">
-
-                      성구 보기 ↗
-
+                    <a class="bible-button"
+                       href="${escapeHTML(url)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       성구 보기 ↗
                     </a>
-
-                </div>
-            `;
+                </div>`;
         }
-
-
-        /*
-        이미지
-        */
-
-        if (
-            typeName === "이미지" &&
-            image
-        ) {
-
-            images += `
-                <div class="data-card">
-
-                    <div class="image-box">
-
-                        <img
-                          src="${escapeHTML(image)}"
-                          alt="자료 이미지"
-                          loading="lazy">
-
-                    </div>
-
-                </div>
-            `;
-        }
-
     });
-
 
     let html = "";
 
-
     if (links) {
-
-        html += `
-            <div class="section-title">
-                🔗 링크
-            </div>
-
-            ${links}
-        `;
+        html += `<div class="section-title">🔗 링크</div>${links}`;
     }
-
 
     if (bibles) {
-
-        html += `
-            <div class="section-title">
-                📖 성구
-            </div>
-
-            ${bibles}
-        `;
+        html += `<div class="section-title">📖 성구</div>${bibles}`;
     }
 
-
-    if (images) {
-
-        html += `
-            <div class="section-title">
-                🖼 이미지
-            </div>
-
-            ${images}
-        `;
-    }
-
-
-    if (!html) {
-
-        html = `
-            <div class="empty">
-                자료 내용이 없습니다.
-            </div>
-        `;
-    }
-
-
-    area.innerHTML = html;
+    area.innerHTML = html ||
+        `<div class="empty">자료 내용이 없습니다.</div>`;
 }
 
 </script>
