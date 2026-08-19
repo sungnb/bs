@@ -1,3 +1,197 @@
+
+
+붙여넣은 텍스트 (1)(20260819-000053).txt
+문서
+
+8aafa679-bc5a-44bd-a2a4-308cffda2c43.png
+
+네. 이제 정확히 알겠습니다.
+지금 올려주신 화면이 우리가 성구 보기를 눌렀을 때 실제로 보여주어야 하는 원본 화면입니다.
+
+특히 로마서 5:12는 WOL에서 실제로:
+
+로마서 5:12
+
+12 그러므로 한 사람을 통해 죄가 세상에 들어오고 죄를 통해 죽음이 들어왔으며, 이와 같이 모두가 죄를 지었으므로 죽음이 모든 사람에게 퍼졌습니다.
+
+이렇게 표시되고 있습니다.
+
+따라서 앞으로는 제가 성구 내용을 직접 작성하거나 축약하지 않겠습니다.
+
+최종 성구 처리 방식
+Airtable에는 예를 들어:
+
+자료명 : 성구
+성구   : 로마서 5:12
+가 기록되어 있고,
+
+사용자가 성구 보기를 누르면 해당 성구의 WOL 주소:
+
+https://wol.jw.org/ko/wol/l/r8/lp-ko?q=로마서 5:12
+로 이동하게 합니다.
+
+그러면 WOL에서 실제 성구 전문을 그대로 보여줍니다.
+
+즉,
+
+고난[시련]
+
+로마서 5:12
+
+[ 성구 보기 ]
+→ 성구 보기 클릭
+→ 지금 올려주신 WOL 화면이 열림
+
+이렇게 하는 것이 가장 정확합니다.
+
+그리고 성구 미리보기는 별도의 본문을 우리가 만들어 넣는 방식이 아니라, 필요하다면 WOL의 실제 내용을 기준으로 보여주는 방식으로 해야 합니다.
+
+그리고 지금까지 말씀하신 조건도 그대로 유지하겠습니다.
+링크 자료 → 현재 잘 되는 방식 그대로
+
+성구 → 성구명 + 성구 보기
+
+성구명 자체에는 링크 없음
+
+성구 보기를 누르면 WOL의 실제 성구로 이동
+
+성구 내용 임의 작성 ❌
+
+성구 내용 축약 ❌
+
+Airtable 기록 순서 그대로
+
+봉사를 위한 준비 → 처음 홈 화면에서만 표시
+
+주제 클릭 → 봉사를 위한 준비 제거
+
+주제 화면 맨 위에는 홈으로 돌아가기 1개만
+
+이제 방향을 제대로 잡았습니다.
+앞에서 제가 임의의 성구 본문을 넣은 것이 문제였습니다. 이번에는 그렇게 하지 않겠습니다.
+
+
+성구는
+https://wol.jw.org/ko/wol/l/r8/lp-ko?q=로마서 5:12
+부분을 참조해서 가져오세요
+
+꼭 모든 성구는 이렇게 적용하세요
+
+네. 이제 방식이 확실합니다.
+
+모든 성구는 Airtable의 성구 값, 예를 들어
+
+로마서 5:12
+를 기준으로 자동으로
+
+https://wol.jw.org/ko/wol/l/r8/lp-ko?q=로마서 5:12
+형태의 WOL 주소를 만들어 사용하겠습니다. 실제 WOL에서도 로마서 5:12의 본문이 확인됩니다. 
+ 
+
+그리고 중요한 점이 하나 있습니다.
+
+성구 화면은 이렇게 하겠습니다
+로마서 5:12
+
+[성구 본문 전체]
+
+┌──────────────────┐
+│     성구 보기     │
+└──────────────────┘
+성구 본문을 제가 임의로 입력하거나 축약하지 않습니다.
+
+성구 보기를 누르면 해당 성구의 WOL 페이지로 갑니다.
+
+다만 Airtable의 성구 이름만 가지고 GitHub의 index.html이 WOL 페이지의 본문을 실시간으로 읽어서 화면에 넣는 것은 별개의 문제입니다.
+
+GitHub Pages에서
+
+Airtable
+   ↓
+로마서 5:12
+   ↓
+WOL
+   ↓
+본문을 자동으로 가져오기
+를 브라우저에서 직접 실행하면 WOL의 외부 요청 제한(CORS 등)에 걸릴 수 있습니다.
+
+그래서 Cloudflare Worker를 나중에 고려하기로 한 현재 단계에서는, 가장 안전한 방법은:
+
+Airtable → 성구 이름 → WOL 주소 자동 생성 → 성구 보기
+
+로 먼저 완성하는 것입니다.
+
+그리고 나중에 Worker를 사용하기로 결정하면:
+
+Airtable → 성구 → WOL에서 본문 자동 가져오기 → 우리 화면에 전체 본문 표시
+
+까지 연결할 수 있습니다.
+
+즉, 지금부터는 성구를 절대로 코드에 임의로 적어 넣지 않겠습니다.
+모든 성구는 Airtable의 성구 값을 기준으로 WOL을 참조하도록 만들겠습니다.
+
+
+이제 모든 코드를 부탁해도 될까요
+
+네. 이번에는 기존에 잘 만들어져 있던 24개 버튼과 화면 구조를 그대로 살리고, 지금까지 말씀하신 조건을 모두 반영한 전체 index.html을 만들었습니다.
+
+이번 코드의 기준
+봉사를 위한 준비는 처음 홈 화면에서만 표시
+
+고난[시련]을 누르면
+
+봉사를 위한 준비 숨김
+
+맨 위에 홈으로 돌아가기 1개만 표시
+
+링크 자료는 지금 잘 되던 방식 그대로
+
+자료 순서는 종류별로 다시 묶지 않고 기록 순서 그대로
+
+성구는
+
+로마서 5:12처럼 글자만 표시
+
+성구 제목 자체에는 링크 없음
+
+성구 보기 버튼만 링크
+
+모든 성구는 Airtable의 성구 값으로 WOL 주소를 자동 생성합니다.
+
+로마서 5:12
+
+→ wol.jw.org ... ?q=로마서 5:12
+
+제가 성구 본문을 임의로 작성하거나 축약하지 않습니다.
+
+Cloudflare Worker는 사용하지 않습니다.
+
+현재 파일은 JavaScript 문법 검사까지 통과했습니다.
+
+전체 코드
+📥 최종 전체 index.html 다운로드
+
+중요한 점 한 가지: 지금 버전은 우리가 약속한 대로 Cloudflare Worker 없이 고난[시련] 하나를 먼저 테스트하는 버전입니다. 따라서 Airtable의 실시간 자동 연결은 아직 넣지 않았습니다. 기존 코드에서도 Airtable 연결 부분은 Worker 주소를 필요로 하는 구조였습니다. 
+
+
+대신 고난[시련]의 현재 기록 순서를 그대로 넣어 두었고, 성구의 성구 보기는 각 성구 이름으로 WOL 주소를 자동 생성하도록 했습니다. 기존 코드의 WOL 주소 생성 방식도 같은 형태였습니다. 
+
+
+먼저 이 파일로 고난[시련] 화면과 성구 보기 작동을 확인하는 것이 좋습니다.
+
+
+
+index.html
+HTML
+
+
+라이브러리
+/
+index.html
+
+
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -140,11 +334,6 @@ body {
     text-decoration: none;
 }
 
-.bible-title::after {
-    content: " ↗";
-    font-size: 16px;
-}
-
 .bible-button {
     display: block;
 
@@ -161,6 +350,16 @@ body {
 
     font-size: 16px;
     font-weight: 700;
+}
+
+/* 주제 화면에서는 '봉사를 위한 준비' 제목을 숨깁니다. */
+body.topic-mode .header {
+    display: none;
+}
+
+/* 주제 화면에서는 홈 버튼을 화면 맨 위에 표시합니다. */
+body.topic-mode .home-button {
+    display: inline-block;
 }
 
 /* 링크 */
@@ -435,130 +634,375 @@ body {
 <script>
 
 /* ==================================================
-   고난[시련] 테스트 버전
-   - Cloudflare Worker 사용 안 함
-   - Airtable API 토큰 사용 안 함
-   - 우선 화면/링크 작동을 확인하기 위한 테스트 자료
+   현재 단계
+   ==================================================
+   Cloudflare Worker는 사용하지 않습니다.
+
+   우선 '고난[시련]' 하나가 원하는 방식으로 작동하는지
+   확인합니다.
+
+   성구는 Airtable의 '성구' 값만 사용해서
+   WOL 주소를 자동으로 만듭니다.
+
+   예:
+   로마서 5:12
+   ↓
+   https://wol.jw.org/ko/wol/l/r8/lp-ko?q=로마서%205%3A12
+
+   성구 제목 자체에는 링크를 걸지 않습니다.
+   '성구 보기' 버튼만 WOL로 연결합니다.
    ================================================== */
+
+
+/* =========================
+   현재 테스트 자료
+   ========================= */
 
 const testData = {
     "고난[시련]": [
-        { 기록명:"고난[전도지]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013410" },
-        { 기록명:"우리가 겪는 고난에 대한 책임이 하느님에게 있습니까? [성경 질문과 대답]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/502012504" },
-        { 기록명:"", 자료명:"성구", 성구:"요한1서 5:19", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"요한1서 3:8", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"로마서 5:12", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"로마서 3:23", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"전도서 9:11", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"야고보서 1:13-15", 링크:"" },
-        { 기록명:"", 자료명:"성구", 성구:"창세기 2:17", 링크:"" },
-        { 기록명:"지배[전도지]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013400" },
-        { 기록명:"이토록 고난이 많은 이유가 무엇입니까? [깨 11/7]", 자료명:"링크", 성구:"", 링크:"https://wol.jw.org/ko/wol/d/r8/lp-ko/102011242" }
+        {
+            자료명: "링크",
+            기록명: "고난[전도지]",
+            링크: "https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013410"
+        },
+        {
+            자료명: "링크",
+            기록명: "우리가 겪는 고난에 대한 책임이 하느님에게 있습니까? [성경 질문과 대답]",
+            링크: "https://wol.jw.org/ko/wol/d/r8/lp-ko/502012504"
+        },
+        { 자료명: "성구", 성구: "요한1서 5:19" },
+        { 자료명: "성구", 성구: "요한1서 3:8" },
+        { 자료명: "성구", 성구: "로마서 5:12" },
+        { 자료명: "성구", 성구: "로마서 3:23" },
+        { 자료명: "성구", 성구: "전도서 9:11" },
+        { 자료명: "성구", 성구: "야고보서 1:13-15" },
+        { 자료명: "성구", 성구: "창세기 2:17" },
+        {
+            자료명: "링크",
+            기록명: "지배[전도지]",
+            링크: "https://wol.jw.org/ko/wol/d/r8/lp-ko/1102013400"
+        },
+        {
+            자료명: "링크",
+            기록명: "이토록 고난이 많은 이유가 무엇입니까? [깨 11/7]",
+            링크: "https://wol.jw.org/ko/wol/d/r8/lp-ko/102011242"
+        }
     ]
 };
 
+
+/* =========================
+   HTML 안전 처리
+   ========================= */
+
 function escapeHTML(value) {
-    if (value === null || value === undefined) return "";
+
+    if (value === null ||
+        value === undefined) {
+        return "";
+    }
+
     return String(value)
-        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
 
+
+/* =========================
+   홈
+   ========================= */
+
 function goHome() {
+
+    document.body.classList.remove("topic-mode");
+
     document.getElementById("topicPage").style.display = "none";
+
     document.getElementById("homePage").style.display = "block";
+
     window.scrollTo(0,0);
 }
 
+
+/* =========================
+   주제 열기
+   ========================= */
+
 async function openTopic(topic) {
+
     document.getElementById("homePage").style.display = "none";
+
     document.getElementById("topicPage").style.display = "block";
+
+    /*
+     * 홈 화면의 '봉사를 위한 준비'를 숨깁니다.
+     */
+    document.body.classList.add("topic-mode");
+
     document.getElementById("topicTitle").textContent = topic;
-    document.getElementById("topicData").innerHTML =
-        `<div class="loading">자료를 불러오는 중입니다...</div>`;
+
+    document.getElementById("topicData").innerHTML = `
+        <div class="loading">
+            자료를 불러오는 중입니다...
+        </div>
+    `;
+
     window.scrollTo(0,0);
+
     await loadData(topic);
 }
 
+
+/* =========================
+   자료 가져오기
+   ========================= */
+
 async function loadData(topic) {
-    const area = document.getElementById("topicData");
+
+    const area =
+        document.getElementById("topicData");
+
+    /*
+     * 현재는 고난[시련]만 테스트합니다.
+     */
     const records = testData[topic] || [];
 
     if (!records.length) {
-        area.innerHTML = `<div class="empty">등록된 자료가 없습니다.</div>`;
+
+        area.innerHTML = `
+            <div class="empty">
+                아직 준비 중인 자료입니다.
+            </div>
+        `;
+
         return;
     }
 
+    /*
+     * 중요:
+     * records를 링크/성구로 다시 나누지 않습니다.
+     *
+     * 배열의 순서 그대로 표시합니다.
+     */
     renderRecords(records);
 }
 
-function bibleURL(reference) {
-    return "https://wol.jw.org/ko/wol/l/r8/lp-ko?q=" +
-           encodeURIComponent(reference);
+
+/* =========================
+   Airtable 필드값
+   ========================= */
+
+function field(record, name) {
+
+    if (record[name] !== undefined) {
+        return record[name];
+    }
+
+    if (record.fields &&
+        record.fields[name] !== undefined) {
+        return record.fields[name];
+    }
+
+    return "";
 }
 
+
+/* =========================
+   URL 가져오기
+   ========================= */
+
+function getURL(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    if (typeof value === "string") {
+        return value;
+    }
+
+    if (Array.isArray(value)) {
+
+        if (!value.length) {
+            return "";
+        }
+
+        if (typeof value[0] === "string") {
+            return value[0];
+        }
+
+        if (value[0].url) {
+            return value[0].url;
+        }
+    }
+
+    if (value.url) {
+        return value.url;
+    }
+
+    return "";
+}
+
+
+/* =========================
+   성구 WOL 주소
+   ========================= */
+
+function bibleURL(reference) {
+
+    return (
+        "https://wol.jw.org/ko/wol/l/r8/lp-ko?q=" +
+        encodeURIComponent(String(reference).trim())
+    );
+}
+
+
+/* =========================
+   자료 표시
+   ========================= */
+
 function renderRecords(records) {
-    const area = document.getElementById("topicData");
-    let links = "";
-    let bibles = "";
 
-    records.forEach(function(record) {
-        const typeName = record.자료명 || "";
-        const title = record.기록명 || "";
-        const bible = record.성구 || "";
-        const link = record.링크 || "";
-
-        if (typeName === "링크" && link) {
-            links += `
-                <div class="data-card">
-                    ${title ? `<div style="margin-bottom:12px;font-size:18px;font-weight:700;line-height:1.45;">
-                        ${escapeHTML(title)}
-                    </div>` : ""}
-                    <a class="link-button"
-                       href="${escapeHTML(link)}"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                       자료 보기 ↗
-                    </a>
-                </div>`;
-        }
-
-        if (typeName === "성구" && bible) {
-            const url = link || bibleURL(bible);
-            bibles += `
-                <div class="data-card">
-                    <a class="bible-title"
-                       href="${escapeHTML(url)}"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                       ${escapeHTML(bible)}
-                    </a>
-                    <a class="bible-button"
-                       href="${escapeHTML(url)}"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                       성구 보기 ↗
-                    </a>
-                </div>`;
-        }
-    });
+    const area =
+        document.getElementById("topicData");
 
     let html = "";
 
-    if (links) {
-        html += `<div class="section-title">🔗 링크</div>${links}`;
+
+    records.forEach(function(record) {
+
+        const type =
+            field(record, "자료명");
+
+        let typeName = "";
+
+        if (typeof type === "string") {
+
+            typeName = type;
+
+        } else if (
+            type &&
+            type.name
+        ) {
+
+            typeName = type.name;
+        }
+
+
+        const title =
+            field(record, "기록명");
+
+        const bible =
+            field(record, "성구");
+
+        const link =
+            getURL(
+                field(record, "링크")
+            );
+
+
+        /* =========================
+           링크
+        ========================= */
+
+        if (
+            typeName === "링크" &&
+            link
+        ) {
+
+            html += `
+                <div class="data-card">
+
+                    ${
+                        title
+                        ? `
+                        <div style="
+                            margin-bottom:12px;
+                            font-size:18px;
+                            font-weight:700;
+                            line-height:1.45;">
+                            ${escapeHTML(title)}
+                        </div>
+                        `
+                        : ""
+                    }
+
+                    <a
+                      class="link-button"
+                      href="${escapeHTML(link)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
+
+                      자료 보기 ↗
+
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* =========================
+           성구
+        ========================= */
+
+        if (
+            typeName === "성구" &&
+            bible
+        ) {
+
+            const safeBible =
+                escapeHTML(bible);
+
+            const url =
+                bibleURL(bible);
+
+
+            html += `
+                <div class="data-card">
+
+                    <!-- 성구 제목 자체에는 링크가 없습니다. -->
+                    <div class="bible-title">
+                        ${safeBible}
+                    </div>
+
+                    <a
+                      class="bible-button"
+                      href="${escapeHTML(url)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
+
+                      성구 보기
+
+                    </a>
+
+                </div>
+            `;
+
+        }
+
+    });
+
+
+    if (!html) {
+
+        html = `
+            <div class="empty">
+                자료 내용이 없습니다.
+            </div>
+        `;
     }
 
-    if (bibles) {
-        html += `<div class="section-title">📖 성구</div>${bibles}`;
-    }
 
-    area.innerHTML = html ||
-        `<div class="empty">자료 내용이 없습니다.</div>`;
+    area.innerHTML = html;
 }
 
-</script>
+</script></script>
 
 </body>
 </html>
