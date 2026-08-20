@@ -317,6 +317,113 @@ body.topic-mode .container {
         line-height: 1.75;
     }
 }
+
+/* ===== PC 노트 편집기 ===== */
+.note-edit-button{
+    display:inline-block;
+    margin-top:12px;
+    padding:9px 14px;
+    border:1px solid #d0d7de;
+    border-radius:8px;
+    background:#fff;
+    color:#333;
+    cursor:pointer;
+    font-size:14px;
+}
+.note-edit-button:hover{background:#f3f5f7}
+
+.note-view{
+    margin-top:12px;
+    padding:16px;
+    background:#f5f7f6;
+    border-radius:10px;
+    color:#333;
+    line-height:1.8;
+    text-align:left;
+    overflow-wrap:anywhere;
+}
+.note-view .note-p{margin:0 0 10px}
+.note-view .note-p:last-child{margin-bottom:0}
+
+.note-editor-overlay{
+    position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,.45);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+}
+.note-editor{
+    width:min(900px,96vw);
+    max-height:90vh;
+    background:#fff;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+}
+.note-editor-head{
+    padding:16px 18px;
+    border-bottom:1px solid #e5e7eb;
+    display:flex; justify-content:space-between; align-items:center;
+}
+.note-editor-title{font-size:18px;font-weight:700}
+.note-editor-toolbar{
+    padding:10px;
+    border-bottom:1px solid #e5e7eb;
+    display:flex; gap:6px; flex-wrap:wrap; align-items:center;
+    background:#fafafa;
+}
+.note-editor-toolbar button,
+.note-editor-toolbar select{
+    height:36px;
+    padding:0 10px;
+    border:1px solid #d0d7de;
+    border-radius:7px;
+    background:#fff;
+    cursor:pointer;
+}
+.note-editor-toolbar button:hover{background:#f0f2f4}
+.note-editor-body{
+    padding:18px;
+    overflow:auto;
+    flex:1;
+}
+.note-editor-content{
+    min-height:380px;
+    border:1px solid #cfd5dc;
+    border-radius:9px;
+    padding:18px;
+    outline:none;
+    line-height:1.8;
+    text-align:left;
+    font-size:16px;
+}
+.note-editor-content:focus{
+    border-color:#7aa7ff;
+    box-shadow:0 0 0 2px rgba(50,120,255,.12);
+}
+.note-editor-foot{
+    padding:12px 16px;
+    border-top:1px solid #e5e7eb;
+    display:flex; justify-content:flex-end; gap:8px;
+}
+.note-editor-foot button{
+    padding:10px 18px;
+    border-radius:8px;
+    border:1px solid #d0d7de;
+    background:#fff;
+    cursor:pointer;
+}
+.note-save{
+    background:#1677ff !important;
+    color:#fff !important;
+    border-color:#1677ff !important;
+}
+.note-status{margin-right:auto;align-self:center;color:#666;font-size:13px}
+@media(max-width:700px){
+    .note-edit-button{display:none}
+    .note-editor-overlay{display:none}
+}
+
 </style>
 </head>
 
@@ -1036,7 +1143,10 @@ function renderRecords(records) {
            링크 자료
            ========================= */
 
-        if (link) {
+        if (
+            type === "링크" &&
+            link
+        ) {
 
             html += `
                 <div class="data-card">
@@ -1169,12 +1279,23 @@ function renderRecords(records) {
                     ${
                         note
                         ? `
-                        <div class="note-box">
-                            ${escapeHTML(note)}
+                        <div class="note-view">
+                            ${renderNoteContent(note)}
                         </div>
                         `
-                        : ""
+                        : `
+                        <div class="note-view" style="color:#888;">
+                            아직 기록된 노트가 없습니다.
+                        </div>
+                        `
                     }
+
+                    <button
+                        type="button"
+                        class="note-edit-button"
+                        onclick="openNoteEditor(${JSON.stringify(record.id)}, ${JSON.stringify(title || "노트")}, ${JSON.stringify(note || "")})">
+                        PC에서 노트 편집
+                    </button>
 
                     ${imageHTML}
 
@@ -1201,7 +1322,342 @@ function renderRecords(records) {
 }
 
 
+
+/* ==========================================
+   PC 노트 편집기
+   - HTML을 Airtable의 노트에 저장
+   - 휴대폰에서는 보기 전용
+   ========================================== */
+
+let currentNoteRecordId = "";
+let currentNoteTitle = "";
+
+function noteCommand(command) {
+    document.getElementById("noteEditorContent").focus();
+    document.execCommand(command, false, null);
+}
+
+function applyNoteSize(size) {
+    const editor = document.getElementById("noteEditorContent");
+    editor.focus();
+    document.execCommand("fontSize", false, "7");
+    const fonts = editor.querySelectorAll('font[size="7"]');
+    fonts.forEach(el => {
+        el.removeAttribute("size");
+        el.style.fontSize = size;
+    });
+}
+
+function openNoteEditor(recordId, title, note) {
+    if (window.innerWidth <= 700) return;
+
+    currentNoteRecordId = recordId;
+    currentNoteTitle = title || "노트";
+
+    document.getElementById("noteEditorTitle").textContent =
+        currentNoteTitle + " - 노트 편집";
+
+    document.getElementById("noteEditorContent").innerHTML =
+        noteToEditorHTML(note || "");
+
+    document.getElementById("noteEditorStatus").textContent = "";
+
+    document.getElementById("noteEditorOverlay").style.display = "flex";
+
+    setTimeout(() => {
+        document.getElementById("noteEditorContent").focus();
+    }, 50);
+}
+
+function closeNoteEditor() {
+    document.getElementById("noteEditorOverlay").style.display = "none";
+    currentNoteRecordId = "";
+}
+
+function noteToEditorHTML(value) {
+    if (!value) return "";
+
+    /*
+     * 우리가 저장한 HTML이면 그대로 복원합니다.
+     * 기존 일반 텍스트/Markdown도 최대한 보기 좋게 변환합니다.
+     */
+    if (/<[a-z][\s\S]*>/i.test(value)) {
+        return value;
+    }
+
+    let s = escapeHTML(value);
+
+    s = s
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/__(.+?)__/g, "<strong>$1</strong>")
+        .replace(/\*(.+?)\*/g, "<em>$1</em>")
+        .replace(/_(.+?)_/g, "<em>$1</em>")
+        .replace(/\n/g, "<br>");
+
+    return s;
+}
+
+function cleanEditorHTML() {
+    const editor = document.getElementById("noteEditorContent");
+    const clone = editor.cloneNode(true);
+
+    /*
+     * 편집기에서 불필요한 이벤트/속성 제거
+     */
+    clone.querySelectorAll("*").forEach(el => {
+        el.removeAttribute("contenteditable");
+        el.removeAttribute("id");
+        el.removeAttribute("class");
+
+        /*
+         * 허용할 기본 스타일만 남깁니다.
+         */
+        const style = el.getAttribute("style");
+        if (style) {
+            const temp = document.createElement("div");
+            temp.setAttribute("style", style);
+
+            const allowed = [];
+            if (el.style.fontSize) {
+                allowed.push("font-size:" + el.style.fontSize);
+            }
+            if (el.style.textAlign) {
+                allowed.push("text-align:" + el.style.textAlign);
+            }
+
+            if (allowed.length) {
+                el.setAttribute("style", allowed.join(";"));
+            } else {
+                el.removeAttribute("style");
+            }
+        }
+    });
+
+    return clone.innerHTML.trim();
+}
+
+async function saveNoteEditor() {
+
+    if (!currentNoteRecordId) return;
+
+    const status =
+        document.getElementById("noteEditorStatus");
+
+    const html =
+        cleanEditorHTML();
+
+    status.textContent =
+        "저장 중...";
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    recordId:
+                        currentNoteRecordId,
+
+                    note:
+                        html
+                })
+
+            });
+
+        const data =
+            await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(
+                data.error ||
+                "저장에 실패했습니다."
+            );
+        }
+
+        status.textContent =
+            "저장되었습니다.";
+
+        /*
+         * 현재 화면도 즉시 갱신
+         */
+        const currentTopic =
+            document.getElementById("topicTitle").textContent;
+
+        setTimeout(async () => {
+            closeNoteEditor();
+            await loadData(currentTopic);
+        }, 500);
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "저장 실패: " +
+            error.message;
+    }
+}
+
+function renderNoteContent(note) {
+
+    if (!note) return "";
+
+    /*
+     * Airtable에서 저장된 HTML을 안전하게 제한된 태그만
+     * 표시합니다.
+     */
+    let value = String(note);
+
+    /*
+     * 기존 Markdown도 간단히 지원
+     */
+    if (!/<[a-z][\s\S]*>/i.test(value)) {
+
+        value = escapeHTML(value)
+            .replace(/\*\*(.+?)\*\*/g,
+                "<strong>$1</strong>")
+            .replace(/__(.+?)__/g,
+                "<strong>$1</strong>")
+            .replace(/\*(.+?)\*/g,
+                "<em>$1</em>")
+            .replace(/_(.+?)_/g,
+                "<em>$1</em>")
+            .replace(/\n/g, "<br>");
+
+    }
+
+    /*
+     * 허용 태그만 남깁니다.
+     */
+    const template =
+        document.createElement("template");
+
+    template.innerHTML = value;
+
+    const allowedTags = new Set([
+        "B","STRONG","I","EM","U",
+        "BR","P","DIV","SPAN",
+        "UL","OL","LI"
+    ]);
+
+    template.content
+        .querySelectorAll("*")
+        .forEach(el => {
+
+            if (!allowedTags.has(el.tagName)) {
+
+                const text =
+                    document.createTextNode(
+                        el.textContent || ""
+                    );
+
+                el.replaceWith(text);
+
+                return;
+            }
+
+            /*
+             * style은 font-size / text-align만 허용
+             */
+            const style =
+                el.getAttribute("style") || "";
+
+            const safeStyles = [];
+
+            const size =
+                style.match(
+                    /font-size\s*:\s*([0-9.]+(?:px|pt|em|rem|%))/i
+                );
+
+            const align =
+                style.match(
+                    /text-align\s*:\s*(left|center|right|justify)/i
+                );
+
+            if (size) {
+                safeStyles.push(
+                    "font-size:" + size[1]
+                );
+            }
+
+            if (align) {
+                safeStyles.push(
+                    "text-align:" + align[1]
+                );
+            }
+
+            if (safeStyles.length) {
+                el.setAttribute(
+                    "style",
+                    safeStyles.join(";")
+                );
+            } else {
+                el.removeAttribute("style");
+            }
+
+            /*
+             * 위험한 속성 제거
+             */
+            [...el.attributes].forEach(attr => {
+                if (
+                    attr.name !== "style"
+                ) {
+                    el.removeAttribute(
+                        attr.name
+                    );
+                }
+            });
+
+        });
+
+    return template.innerHTML;
+}
+
 </script>
+
+
+<div id="noteEditorOverlay" class="note-editor-overlay" style="display:none;">
+  <div class="note-editor" role="dialog" aria-modal="true">
+    <div class="note-editor-head">
+      <div class="note-editor-title" id="noteEditorTitle">노트 편집</div>
+      <button type="button" onclick="closeNoteEditor()" aria-label="닫기">✕</button>
+    </div>
+    <div class="note-editor-toolbar">
+      <select id="noteFontSize" onchange="applyNoteSize(this.value)">
+        <option value="16px">기본 16</option>
+        <option value="14px">작게 14</option>
+        <option value="18px">18</option>
+        <option value="22px">22</option>
+        <option value="28px">28</option>
+        <option value="34px">34</option>
+      </select>
+      <button type="button" onclick="noteCommand('bold')"><b>B</b></button>
+      <button type="button" onclick="noteCommand('italic')"><i>I</i></button>
+      <button type="button" onclick="noteCommand('underline')"><u>U</u></button>
+      <button type="button" onclick="noteCommand('justifyLeft')">왼쪽</button>
+      <button type="button" onclick="noteCommand('justifyCenter')">가운데</button>
+      <button type="button" onclick="noteCommand('justifyRight')">오른쪽</button>
+      <button type="button" onclick="noteCommand('insertUnorderedList')">• 목록</button>
+      <button type="button" onclick="noteCommand('insertOrderedList')">1. 목록</button>
+      <button type="button" onclick="noteCommand('removeFormat')">서식 지우기</button>
+    </div>
+    <div class="note-editor-body">
+      <div id="noteEditorContent" class="note-editor-content" contenteditable="true"></div>
+    </div>
+    <div class="note-editor-foot">
+      <span id="noteEditorStatus" class="note-status"></span>
+      <button type="button" onclick="closeNoteEditor()">취소</button>
+      <button type="button" class="note-save" onclick="saveNoteEditor()">저장</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
