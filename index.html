@@ -231,12 +231,6 @@ body.topic-mode .container {
     cursor: pointer;
 }
 
-.image-caption {
-    margin-top: 8px;
-    color: #666;
-    font-size: 13px;
-}
-
 /* =========================
    링크
    ========================= */
@@ -1100,15 +1094,6 @@ function renderRecords(records) {
 
                             </a>
 
-                            ${
-                                fileName
-                                ? `
-                                <div class="image-caption">
-                                    ${escapeHTML(fileName)}
-                                </div>
-                                `
-                                : ""
-                            }
                         </div>
                     `;
                 }
