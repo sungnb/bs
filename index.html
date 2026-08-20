@@ -1,342 +1,1864 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>봉사를 위한 준비</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f7f6;
+    color: #222;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        sans-serif;
+}
+
+/* ==========================================
+   메인 제목
+   ========================================== */
+
+.header {
+    background: #3f7f4a;
+    color: white;
+    padding: 18px 20px;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+body.topic-mode .header {
+    display: none;
+}
+
+
+/* ==========================================
+   전체 컨테이너
+   ========================================== */
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 18px 12px 40px;
+}
+
+body.topic-mode .container {
+    padding-top: 0;
+}
+
+
+/* ==========================================
+   24개 메뉴
+   ========================================== */
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+
+.menu-button {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 62px;
+    padding: 8px 4px;
+
+    border-radius: 15px;
+    border: 2px solid rgba(70,70,70,.42);
+
+    color: #111;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    text-align: center;
+    line-height: 1.2;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 3px 2px rgba(255,255,255,.95),
+        inset 0 -5px 4px rgba(0,0,0,.18),
+        0 4px 0 rgba(70,70,70,.28),
+        0 6px 9px rgba(0,0,0,.18);
+
+    text-shadow:
+        0 1px 0 rgba(255,255,255,.75);
+
+    transform: translateY(0);
+
+    transition:
+        transform .08s ease,
+        box-shadow .08s ease,
+        filter .08s ease;
+}
+
+
+/* 버튼 위쪽 반사광 */
+
+.menu-button::before {
+    content: "";
+
+    position: absolute;
+
+    left: 7%;
+    right: 7%;
+    top: 5px;
+
+    height: 35%;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.48),
+            rgba(255,255,255,0)
+        );
+
+    pointer-events: none;
+}
+
+
+/* 1~6 분홍 */
+
+.menu-button:nth-child(-n+6) {
+    background:
+        linear-gradient(
+            to bottom,
+            #f9dce2 0%,
+            #efbdc9 42%,
+            #d99ba9 100%
+        );
+
+    border-color: #a96f7d;
+}
+
+
+/* 7~12 크림 */
+
+.menu-button:nth-child(n+7):nth-child(-n+12) {
+    background:
+        linear-gradient(
+            to bottom,
+            #fffbe8 0%,
+            #f0e5bd 42%,
+            #d7c99a 100%
+        );
+
+    border-color: #a99b68;
+}
+
+
+/* 13~18 초록 */
+
+.menu-button:nth-child(n+13):nth-child(-n+18) {
+    background:
+        linear-gradient(
+            to bottom,
+            #e4f4e6 0%,
+            #c7e2cc 42%,
+            #a2c5aa 100%
+        );
+
+    border-color: #72997b;
+}
+
+
+/* 19~24 파랑 */
+
+.menu-button:nth-child(n+19):nth-child(-n+24) {
+    background:
+        linear-gradient(
+            to bottom,
+            #e6f2ff 0%,
+            #c9ddf5 42%,
+            #a2bddf 100%
+        );
+
+    border-color: #708eb3;
+}
+
+
+/* 눌리는 효과 */
+
+.menu-button:active {
+    transform:
+        translateY(4px)
+        scale(.985);
+
+    box-shadow:
+        inset 0 3px 4px rgba(0,0,0,.16),
+        inset 0 -2px 2px rgba(255,255,255,.35),
+        0 1px 0 rgba(70,70,70,.28),
+        0 2px 4px rgba(0,0,0,.16);
+
+    filter: brightness(.96);
+}
+
+
+/* ==========================================
+   주제 화면
+   ========================================== */
+
+#topicPage {
+    display: none;
+}
+
+
+.home-button {
+    display: inline-block;
+
+    margin: 0 0 18px 0;
+    padding: 10px 15px;
+
+    background: white;
+
+    border: 1px solid #d5ded7;
+    border-radius: 9px;
+
+    color: #28733a;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.topic-title {
+    margin-bottom: 18px;
+
+    font-size: 27px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   자료 카드
+   ========================================== */
+
+.data-card {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.08);
+}
+
+
+.section-title {
+    margin: 22px 4px 12px;
+
+    color: #28733a;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   자료 제목
+   ========================================== */
+
+.data-title {
+    margin-bottom: 11px;
+
+    color: #222;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.45;
+}
+
+
+/* ==========================================
+   성구 제목
+   ========================================== */
+
+.bible-title {
+    display: block;
+
+    color: #2f7040;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    line-height: 1.5;
+
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   실제 성구 내용
+   ========================================== */
+
+.bible-text {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #f5f7f6;
+
+    border-radius: 10px;
+
+    color: #333;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    text-align: left;
+}
+
+
+/* ==========================================
+   성구 보기
+   ========================================== */
+
+.bible-button {
+    display: block;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    background: #3f7f4a;
+
+    border-radius: 10px;
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   링크
+   ========================================== */
+
+.link-button {
+    display: block;
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #3f7f4a;
+
+    border-radius: 10px;
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   노트
+   ========================================== */
+
+.note-view {
+    margin-top: 12px;
+
+    padding: 16px;
+
+    background: #f5f7f6;
+
+    border-radius: 10px;
+
+    color: #333;
+
+    line-height: 1.8;
+
+    text-align: left;
+
+    overflow-wrap: anywhere;
+}
+
+
+.note-view .note-p {
+    margin: 0 0 10px;
+}
+
+
+.note-view .note-p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================
+   이미지
+   ========================================== */
+
+.image-box {
+    margin-top: 12px;
+
+    text-align: center;
+}
+
+
+.image-box img {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    height: auto;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   상태
+   ========================================== */
+
+.loading,
+.empty,
+.error {
+
+    padding: 25px 18px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+}
+
+
+.loading {
+    color: #666;
+}
+
+
+.empty {
+    color: #777;
+}
+
+
+.error {
+    color: #b33;
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   모바일
+   ========================================== */
+
+@media (max-width: 480px) {
+
+    .header {
+        font-size: 21px;
+    }
+
+
+    .menu-grid {
+        gap: 8px;
+    }
+
+
+    .menu-button {
+        min-height: 62px;
+
+        font-size: 18px;
+
+        border-radius: 13px;
+    }
+
+
+    .topic-title {
+        font-size: 24px;
+    }
+
+
+    .data-title {
+        font-size: 19px;
+    }
+
+
+    .bible-text {
+        font-size: 15px;
+
+        line-height: 1.75;
+    }
+
+}
+
+
+/* ==========================================
+   PC 노트 편집기
+   ========================================== */
+
+.note-edit-button {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    padding: 9px 14px;
+
+    border: 1px solid #d0d7de;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #333;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+
+.note-edit-button:hover {
+    background: #f3f5f7;
+}
+
+
+.note-editor-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    background: rgba(0,0,0,.45);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+.note-editor {
+
+    width: min(900px,96vw);
+
+    max-height: 90vh;
+
+    background: #fff;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+
+.note-editor-head {
+
+    padding: 16px 18px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.note-editor-title {
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.note-editor-toolbar {
+
+    padding: 10px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display: flex;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    background: #fafafa;
+}
+
+
+.note-editor-toolbar button,
+.note-editor-toolbar select {
+
+    height: 36px;
+
+    padding: 0 10px;
+
+    border: 1px solid #d0d7de;
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+
+.note-editor-toolbar button:hover {
+
+    background: #f0f2f4;
+}
+
+
+.note-editor-body {
+
+    padding: 18px;
+
+    overflow: auto;
+
+    flex: 1;
+}
+
+
+.note-editor-content {
+
+    min-height: 380px;
+
+    border: 1px solid #cfd5dc;
+
+    border-radius: 9px;
+
+    padding: 18px;
+
+    outline: none;
+
+    line-height: 1.8;
+
+    text-align: left;
+
+    font-size: 16px;
+}
+
+
+.note-editor-content:focus {
+
+    border-color: #7aa7ff;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(50,120,255,.12);
+}
+
+
+.note-editor-foot {
+
+    padding: 12px 16px;
+
+    border-top:
+        1px solid #e5e7eb;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+}
+
+
+.note-editor-foot button {
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    border: 1px solid #d0d7de;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+
+.note-save {
+
+    background: #1677ff !important;
+
+    color: #fff !important;
+
+    border-color: #1677ff !important;
+}
+
+
+.note-status {
+
+    margin-right: auto;
+
+    align-self: center;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+@media(max-width:700px) {
+
+    .note-edit-button {
+        display: none;
+    }
+
+    .note-editor-overlay {
+        display: none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     메인 제목
+     ========================================== -->
+
+<div class="header">
+    봉사를 위한 준비
+</div>
+
+
+<main class="container">
+
+
+<!-- ==========================================
+     홈
+     ========================================== -->
+
+<section id="homePage">
+
+<div class="menu-grid">
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('대화[칭찬]');return false;">
+   대화[칭찬]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('고난[시련]');return false;">
+   고난[시련]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('미래[희망]');return false;">
+   미래[희망]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('이름[여호와]');return false;">
+   이름[여호와]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('전파[전도]');return false;">
+   전파[전도]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('예 언');return false;">
+   예 언
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('생 일');return false;">
+   생 일
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('죽음[사망]');return false;">
+   죽음[사망]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('부 활');return false;">
+   부 활
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('지 옥');return false;">
+   지 옥
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('천국[천당]');return false;">
+   천국[천당]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('왕 국');return false;">
+   왕 국
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('정치[중립]');return false;">
+   정치[중립]
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('전 쟁');return false;">
+   전 쟁
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('통치자');return false;">
+   통치자
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('크리스마스');return false;">
+   크리스마스
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('십자가');return false;">
+   십자가
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('삼위일체');return false;">
+   삼위일체
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('과 학');return false;">
+   과 학
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('수 혈');return false;">
+   수 혈
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('계시록');return false;">
+   계시록
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('동성애');return false;">
+   동성애
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('안식일');return false;">
+   안식일
+</a>
+
+
+<a class="menu-button"
+   href="#"
+   onclick="openTopic('편지봉사');return false;">
+   편지봉사
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ==========================================
+     자료 화면
+     ========================================== -->
+
+<section id="topicPage">
+
+
+<a href="#"
+   class="home-button"
+   onclick="goHome();return false;">
+   ← 홈으로 돌아가기
+</a>
+
+
+<div id="topicTitle"
+     class="topic-title">
+</div>
+
+
+<div id="topicData">
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<script>
+
+/* ==========================================
+   Cloudflare Worker
+   ========================================== */
+
+const API_URL =
+    "https://seoulbukbu.s01021319376.workers.dev/";
+
+
+/* ==========================================
+   HTML 안전 처리
+   ========================================== */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+}
+
+
+/* ==========================================
+   홈
+   ========================================== */
+
+function goHome() {
+
+    document.body.classList.remove(
+        "topic-mode"
+    );
+
+
+    document.getElementById(
+        "topicPage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "homePage"
+    ).style.display = "block";
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==========================================
+   주제 열기
+   ========================================== */
+
+async function openTopic(topic) {
+
+    document.getElementById(
+        "homePage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "topicPage"
+    ).style.display = "block";
+
+
+    document.body.classList.add(
+        "topic-mode"
+    );
+
+
+    document.getElementById(
+        "topicTitle"
+    ).textContent = topic;
+
+
+    document.getElementById(
+        "topicData"
+    ).innerHTML = `
+        <div class="loading">
+            자료를 불러오는 중입니다...
+        </div>
+    `;
+
+
+    window.scrollTo(0,0);
+
+
+    await loadData(topic);
+
+}
+
+
+/* ==========================================
+   Worker 자료 가져오기
+   ========================================== */
+
+async function loadData(topic) {
+
+    const area =
+        document.getElementById(
+            "topicData"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            let errorMessage =
+                "Worker 응답 오류 (" +
+                response.status +
+                ")";
+
+
+            try {
+
+                const errorData =
+                    await response.json();
+
+                if (errorData.error) {
+
+                    errorMessage +=
+                        "<br>" +
+                        escapeHTML(
+                            typeof errorData.error === "string"
+                                ? errorData.error
+                                : JSON.stringify(errorData.error)
+                        );
+
+                }
+
+            } catch (e) {}
+
+            throw new Error(
+                errorMessage
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success ||
+            !Array.isArray(data.records)
+        ) {
+
+            throw new Error(
+                "자료 형식이 올바르지 않습니다."
+            );
+
+        }
+
+
+        /*
+         * 현재 메뉴의 자료만 선택
+         */
+
+        const records =
+            data.records.filter(
+                function(record) {
+
+                    const fields =
+                        record.fields || {};
+
+
+                    return (
+                        String(
+                            fields["메뉴"] || ""
+                        ).trim() ===
+                        String(topic).trim()
+                    );
+
+                }
+            );
+
+
+        /*
+         * 순서 적용
+         */
+
+        records.sort(
+            function(a,b) {
+
+                const aFields =
+                    a.fields || {};
+
+                const bFields =
+                    b.fields || {};
+
+
+                const aOrder =
+                    Number(
+                        aFields["순서"]
+                    ) || 999999;
+
+
+                const bOrder =
+                    Number(
+                        bFields["순서"]
+                    ) || 999999;
+
+
+                return aOrder - bOrder;
+
+            }
+        );
+
+
+        if (!records.length) {
+
+            area.innerHTML = `
+                <div class="empty">
+                    아직 준비 중인 자료입니다.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        renderRecords(records);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "자료 불러오기 오류:",
+            error
+        );
+
+
+        area.innerHTML = `
+            <div class="error">
+                자료를 불러오지 못했습니다.
+                <br><br>
+                ${error.message}
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ==========================================
+   URL 가져오기
+   ========================================== */
+
+function getURL(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        typeof value === "string"
+    ) {
+        return value;
+    }
+
+
+    if (
+        Array.isArray(value)
+    ) {
+
+        if (!value.length) {
+            return "";
+        }
+
+
+        if (
+            typeof value[0] === "string"
+        ) {
+            return value[0];
+        }
+
+
+        if (
+            value[0] &&
+            value[0].url
+        ) {
+
+            return value[0].url;
+
+        }
+
+    }
+
+
+    if (value.url) {
+        return value.url;
+    }
+
+
+    return "";
+
+}
+
+
+/* ==========================================
+   WOL 성구 주소
+   ========================================== */
+
+function bibleURL(reference) {
+
+    return (
+        "https://wol.jw.org/ko/wol/l/r8/lp-ko?q=" +
+        encodeURIComponent(
+            String(reference).trim()
+        )
+    );
+
+}
+
+
+/* ==========================================
+   성구 본문 정리
+   ========================================== */
+
+function cleanBibleText(text) {
+
+    if (!text) {
+        return "";
+    }
+
+
+    let result =
+        String(text);
+
+
+    /*
+     * Worker에서 이미 정리된 본문이면
+     * 그대로 사용합니다.
+     */
+
+    const startMarker =
+        "신세계역 성경 (연구용)";
+
+
+    const startIndex =
+        result.indexOf(
+            startMarker
+        );
+
+
+    if (
+        startIndex !== -1
+    ) {
+
+        result =
+            result.substring(
+                startIndex +
+                startMarker.length
+            );
+
+    }
+
+
+    /*
+     * WOL 공통 내용 제거
+     */
+
+    const endMarkers = [
+
+        "한국어 워치 타워 출판물",
+
+        "한국어 워치 타워",
+
+        "Copyright",
+
+        "저작권",
+
+        "이용 약관",
+
+        "개인 정보 보호",
+
+        "JW.ORG"
+
+    ];
+
+
+    let end =
+        result.length;
+
+
+    for (
+        const marker of endMarkers
+    ) {
+
+        const index =
+            result.indexOf(marker);
+
+
+        if (
+            index !== -1 &&
+            index < end
+        ) {
+
+            end = index;
+
+        }
+
+    }
+
+
+    result =
+        result.substring(
+            0,
+            end
+        );
+
+
+    /*
+     * HTML 엔티티 정리
+     */
+
+    result =
+        result
+
+            .replace(
+                /&copy;/gi,
+                ""
+            )
+
+            .replace(
+                /&amp;/gi,
+                "&"
+            )
+
+            .replace(
+                /&quot;/gi,
+                '"'
+            )
+
+            .replace(
+                /&#39;/gi,
+                "'"
+            );
+
+
+    /*
+     * 불필요한 공백 정리
+     */
+
+    result =
+        result
+
+            .replace(
+                /\s+\*/g,
+                ""
+            )
+
+            .replace(
+                /\s+\+/g,
+                ""
+            )
+
+            .replace(
+                /\s+/g,
+                " "
+            )
+
+            .trim();
+
+
+    return result;
+
+}
+
+
+/* ==========================================
+   자료 표시
+   ========================================== */
+
 function renderRecords(records) {
 
     const area =
-        document.getElementById("topicData");
+        document.getElementById(
+            "topicData"
+        );
+
 
     let html = "";
 
-    records.forEach(function(record) {
 
-        const fields =
-            record.fields || {};
+    records.forEach(
+        function(record) {
 
-        /*
-         * ==========================================
-         * Airtable 기본 자료
-         * ==========================================
-         */
-
-        const title =
-            String(
-                fields["자료명"] ||
-                fields["기록명"] ||
-                ""
-            ).trim();
-
-        const bible =
-            String(
-                fields["성구"] ||
-                ""
-            ).trim();
-
-        const link =
-            getURL(
-                fields["링크"]
-            );
-
-        const note =
-            fields["노트"] || "";
-
-        const imageValue =
-            fields["이미지"];
+            const fields =
+                record.fields || {};
 
 
-        /*
-         * ==========================================
-         * 이미지
-         * ==========================================
-         */
+            /*
+             * 자료명
+             *
+             * 중요:
+             * 사용자가 원하는 제목을 기록합니다.
+             */
 
-        let imageHTML = "";
+            const title =
+                String(
+                    fields["자료명"] ||
+                    fields["기록명"] ||
+                    ""
+                ).trim();
 
-        if (Array.isArray(imageValue)) {
 
-            imageValue.forEach(function(file) {
+            /*
+             * 성구
+             */
 
-                if (file && file.url) {
+            const bible =
+                String(
+                    fields["성구"] ||
+                    ""
+                ).trim();
 
-                    const fileName =
-                        file.filename || "";
 
-                    imageHTML += `
+            /*
+             * 링크
+             */
+
+            const link =
+                getURL(
+                    fields["링크"]
+                );
+
+
+            /*
+             * 노트
+             */
+
+            const note =
+                fields["노트"] || "";
+
+
+            /*
+             * 이미지
+             */
+
+            const imageValue =
+                fields["이미지"];
+
+
+            let imageHTML = "";
+
+
+            /* ==================================
+               이미지 배열
+               ================================== */
+
+            if (
+                Array.isArray(imageValue)
+            ) {
+
+                imageValue.forEach(
+                    function(file) {
+
+                        if (
+                            file &&
+                            file.url
+                        ) {
+
+                            const fileName =
+                                file.filename || "";
+
+
+                            imageHTML += `
+                                <div class="image-box">
+
+                                    <a
+                                        href="${escapeHTML(file.url)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+
+                                        <img
+                                            src="${escapeHTML(file.url)}"
+                                            alt="${escapeHTML(fileName)}">
+
+                                    </a>
+
+                                </div>
+                            `;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* ==================================
+               단일 이미지
+               ================================== */
+
+            else {
+
+                const imageURL =
+                    getURL(
+                        imageValue
+                    );
+
+
+                if (imageURL) {
+
+                    imageHTML = `
                         <div class="image-box">
 
                             <a
-                                href="${escapeHTML(file.url)}"
+                                href="${escapeHTML(imageURL)}"
                                 target="_blank"
                                 rel="noopener noreferrer">
 
                                 <img
-                                    src="${escapeHTML(file.url)}"
-                                    alt="${escapeHTML(fileName)}">
+                                    src="${escapeHTML(imageURL)}"
+                                    alt="이미지">
 
                             </a>
 
                         </div>
                     `;
+
                 }
 
-            });
+            }
 
-        } else {
 
-            const imageURL =
-                getURL(imageValue);
+            /* ==========================================
+               ① 성구 자료
 
-            if (imageURL) {
+               성구 필드에 값이 있기만 하면
+               자료명과 관계없이 성구 자료입니다.
+               ========================================== */
 
-                imageHTML = `
-                    <div class="image-box">
+            if (bible) {
+
+                const bibleText =
+                    cleanBibleText(
+                        record.bibleText
+                    );
+
+
+                const url =
+                    record.bibleUrl ||
+                    bibleURL(bible);
+
+
+                html += `
+                    <div class="data-card">
+
+                        ${
+                            title
+                            ? `
+                                <div class="data-title">
+
+                                    ${escapeHTML(title)}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        <div class="bible-title">
+
+                            ${escapeHTML(bible)}
+
+                        </div>
+
+
+                        ${
+                            bibleText
+                            ? `
+                                <div class="bible-text">
+
+                                    ${escapeHTML(bibleText)}
+
+                                </div>
+                            `
+                            : `
+                                <div style="
+                                    margin-top:15px;
+                                    padding:12px;
+                                    background:#f5f7f6;
+                                    border-radius:10px;
+                                    color:#777;
+                                    font-size:14px;
+                                    line-height:1.6;">
+
+                                    성구 내용을 불러오지 못했습니다.
+
+                                </div>
+                            `
+                        }
+
 
                         <a
-                            href="${escapeHTML(imageURL)}"
+                            class="bible-button"
+                            href="${escapeHTML(url)}"
                             target="_blank"
                             rel="noopener noreferrer">
 
-                            <img
-                                src="${escapeHTML(imageURL)}"
-                                alt="이미지">
+                            성구 보기 ↗
 
                         </a>
 
                     </div>
                 `;
+
+
+                return;
+
             }
-        }
 
 
-        /*
-         * ==========================================
-         * 성구 자료
-         *
-         * 중요:
-         * 자료명이 무엇이든
-         * 성구 필드에 값이 있으면
-         * 성구 자료로 처리합니다.
-         *
-         * 예:
-         *
-         * 부지런한 사람
-         * 잠언 21:5
-         *
-         * 고난의 원인
-         * 로마서 5:12
-         * ==========================================
-         */
+            /* ==========================================
+               ② 링크 자료
+               ========================================== */
 
-        if (bible) {
+            if (link) {
 
-            const bibleText =
-                cleanBibleText(
-                    record.bibleText
-                );
+                html += `
+                    <div class="data-card">
 
-            const url =
-                record.bibleUrl ||
-                bibleURL(bible);
+                        ${
+                            title
+                            ? `
+                                <div class="data-title">
+
+                                    ${escapeHTML(title)}
+
+                                </div>
+                            `
+                            : ""
+                        }
 
 
-            html += `
-                <div class="data-card">
+                        <a
+                            class="link-button"
+                            href="${escapeHTML(link)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
 
-                    <!-- 자료명 -->
+                            자료 보기 ↗
 
-                    <div style="
-                        margin-bottom:8px;
-                        color:#222;
-                        font-size:20px;
-                        font-weight:700;
-                        line-height:1.45;">
-
-                        ${escapeHTML(title)}
+                        </a>
 
                     </div>
+                `;
 
 
-                    <!-- 성구 -->
+                return;
 
-                    <div class="bible-title">
+            }
 
-                        ${escapeHTML(bible)}
+
+            /* ==========================================
+               ③ 노트 / 이미지
+               ========================================== */
+
+            if (
+                note ||
+                imageHTML
+            ) {
+
+                html += `
+                    <div class="data-card">
+
+                        ${
+                            title
+                            ? `
+                                <div class="data-title">
+
+                                    ${escapeHTML(title)}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            note
+                            ? `
+                                <div class="note-view">
+
+                                    ${renderNoteContent(note)}
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        ${imageHTML}
 
                     </div>
+                `;
 
 
-                    <!-- 실제 성구 내용 -->
+                return;
 
-                    ${
-                        bibleText
-                        ? `
-                        <div class="bible-text">
-
-                            ${escapeHTML(bibleText)}
-
-                        </div>
-                        `
-                        : `
-                        <div style="
-                            margin-top:15px;
-                            padding:12px;
-                            background:#f5f7f6;
-                            border-radius:10px;
-                            color:#777;
-                            font-size:14px;
-                            line-height:1.6;">
-
-                            성구 내용을 불러오지 못했습니다.
-
-                        </div>
-                        `
-                    }
+            }
 
 
-                    <!-- 성구 보기 -->
+            /* ==========================================
+               ④ 자료명만 있는 경우
+               ========================================== */
 
-                    <a
-                        class="bible-button"
-                        href="${escapeHTML(url)}"
-                        target="_blank"
-                        rel="noopener noreferrer">
+            if (title) {
 
-                        성구 보기 ↗
+                html += `
+                    <div class="data-card">
 
-                    </a>
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        /*
-         * ==========================================
-         * 링크 자료
-         * ==========================================
-         */
-
-        if (link) {
-
-            html += `
-                <div class="data-card">
-
-                    ${
-                        title
-                        ? `
-                        <div style="
-                            margin-bottom:12px;
-                            font-size:20px;
-                            font-weight:700;
-                            line-height:1.45;">
+                        <div class="data-title">
 
                             ${escapeHTML(title)}
 
                         </div>
-                        `
-                        : ""
-                    }
-
-                    <a
-                        class="link-button"
-                        href="${escapeHTML(link)}"
-                        target="_blank"
-                        rel="noopener noreferrer">
-
-                        자료 보기 ↗
-
-                    </a>
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        /*
-         * ==========================================
-         * 노트 / 이미지 자료
-         * ==========================================
-         */
-
-        if (
-            note ||
-            imageHTML
-        ) {
-
-            html += `
-                <div class="data-card">
-
-                    ${
-                        title
-                        ? `
-                        <div style="
-                            margin-bottom:12px;
-                            font-size:20px;
-                            font-weight:700;
-                            line-height:1.45;">
-
-                            ${escapeHTML(title)}
-
-                        </div>
-                        `
-                        : ""
-                    }
-
-                    ${
-                        note
-                        ? `
-                        <div class="note-view">
-
-                            ${renderNoteContent(note)}
-
-                        </div>
-                        `
-                        : ""
-                    }
-
-                    ${imageHTML}
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        /*
-         * ==========================================
-         * 자료명만 있는 경우
-         * ==========================================
-         */
-
-        if (title) {
-
-            html += `
-                <div class="data-card">
-
-                    <div style="
-                        font-size:20px;
-                        font-weight:700;
-                        line-height:1.45;">
-
-                        ${escapeHTML(title)}
 
                     </div>
+                `;
 
-                </div>
-            `;
+            }
 
         }
+    );
 
-    });
 
-
-    /*
-     * ==========================================
-     * 자료가 하나도 없는 경우
-     * ==========================================
-     */
+    /* ==========================================
+       자료 없음
+       ========================================== */
 
     if (!html) {
 
@@ -351,5 +1873,851 @@ function renderRecords(records) {
     }
 
 
-    area.innerHTML = html;
+    area.innerHTML =
+        html;
+
 }
+
+
+/* ==========================================
+   노트 HTML 표시
+   ========================================== */
+
+function renderNoteContent(note) {
+
+    if (!note) {
+        return "";
+    }
+
+
+    let value =
+        String(note);
+
+
+    /*
+     * 일반 텍스트 / Markdown
+     */
+
+    if (
+        !/<[a-z][\s\S]*>/i.test(value)
+    ) {
+
+        value =
+            escapeHTML(value)
+
+                .replace(
+                    /\*\*(.+?)\*\*/g,
+                    "<strong>$1</strong>"
+                )
+
+                .replace(
+                    /__(.+?)__/g,
+                    "<strong>$1</strong>"
+                )
+
+                .replace(
+                    /\*(.+?)\*/g,
+                    "<em>$1</em>"
+                )
+
+                .replace(
+                    /_(.+?)_/g,
+                    "<em>$1</em>"
+                )
+
+                .replace(
+                    /\n/g,
+                    "<br>"
+                );
+
+    }
+
+
+    /*
+     * 안전한 HTML만 허용
+     */
+
+    const template =
+        document.createElement(
+            "template"
+        );
+
+
+    template.innerHTML =
+        value;
+
+
+    const allowedTags =
+        new Set([
+            "B",
+            "STRONG",
+            "I",
+            "EM",
+            "U",
+            "BR",
+            "P",
+            "DIV",
+            "SPAN",
+            "UL",
+            "OL",
+            "LI"
+        ]);
+
+
+    template.content
+        .querySelectorAll("*")
+        .forEach(
+            function(el) {
+
+                if (
+                    !allowedTags.has(
+                        el.tagName
+                    )
+                ) {
+
+                    const text =
+                        document.createTextNode(
+                            el.textContent || ""
+                        );
+
+
+                    el.replaceWith(
+                        text
+                    );
+
+
+                    return;
+
+                }
+
+
+                /*
+                 * style 제한
+                 */
+
+                const style =
+                    el.getAttribute(
+                        "style"
+                    ) || "";
+
+
+                const safeStyles =
+                    [];
+
+
+                const size =
+                    style.match(
+                        /font-size\s*:\s*([0-9.]+(?:px|pt|em|rem|%))/i
+                    );
+
+
+                const align =
+                    style.match(
+                        /text-align\s*:\s*(left|center|right|justify)/i
+                    );
+
+
+                if (size) {
+
+                    safeStyles.push(
+                        "font-size:" +
+                        size[1]
+                    );
+
+                }
+
+
+                if (align) {
+
+                    safeStyles.push(
+                        "text-align:" +
+                        align[1]
+                    );
+
+                }
+
+
+                if (
+                    safeStyles.length
+                ) {
+
+                    el.setAttribute(
+                        "style",
+                        safeStyles.join(";")
+                    );
+
+                }
+
+                else {
+
+                    el.removeAttribute(
+                        "style"
+                    );
+
+                }
+
+
+                /*
+                 * 위험한 속성 제거
+                 */
+
+                [
+                    ...el.attributes
+                ].forEach(
+                    function(attr) {
+
+                        if (
+                            attr.name !==
+                            "style"
+                        ) {
+
+                            el.removeAttribute(
+                                attr.name
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    return template.innerHTML;
+
+}
+
+
+/* ==========================================
+   PC 노트 편집기
+   ========================================== */
+
+let currentNoteRecordId = "";
+
+let currentNoteTitle = "";
+
+
+/* ==========================================
+   노트 서식
+   ========================================== */
+
+function noteCommand(command) {
+
+    const editor =
+        document.getElementById(
+            "noteEditorContent"
+        );
+
+
+    if (!editor) {
+        return;
+    }
+
+
+    editor.focus();
+
+
+    document.execCommand(
+        command,
+        false,
+        null
+    );
+
+}
+
+
+/* ==========================================
+   글자 크기
+   ========================================== */
+
+function applyNoteSize(size) {
+
+    const editor =
+        document.getElementById(
+            "noteEditorContent"
+        );
+
+
+    if (!editor) {
+        return;
+    }
+
+
+    editor.focus();
+
+
+    document.execCommand(
+        "fontSize",
+        false,
+        "7"
+    );
+
+
+    const fonts =
+        editor.querySelectorAll(
+            'font[size="7"]'
+        );
+
+
+    fonts.forEach(
+        function(el) {
+
+            el.removeAttribute(
+                "size"
+            );
+
+
+            el.style.fontSize =
+                size;
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   노트 편집기 열기
+   ========================================== */
+
+function openNoteEditor(
+    recordId,
+    title,
+    note
+) {
+
+    if (
+        window.innerWidth <= 700
+    ) {
+        return;
+    }
+
+
+    currentNoteRecordId =
+        recordId;
+
+
+    currentNoteTitle =
+        title || "노트";
+
+
+    document.getElementById(
+        "noteEditorTitle"
+    ).textContent =
+        currentNoteTitle +
+        " - 노트 편집";
+
+
+    document.getElementById(
+        "noteEditorContent"
+    ).innerHTML =
+        noteToEditorHTML(
+            note || ""
+        );
+
+
+    document.getElementById(
+        "noteEditorStatus"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "noteEditorOverlay"
+    ).style.display =
+        "flex";
+
+
+    setTimeout(
+        function() {
+
+            document.getElementById(
+                "noteEditorContent"
+            ).focus();
+
+        },
+        50
+    );
+
+}
+
+
+/* ==========================================
+   노트 편집기 닫기
+   ========================================== */
+
+function closeNoteEditor() {
+
+    document.getElementById(
+        "noteEditorOverlay"
+    ).style.display =
+        "none";
+
+
+    currentNoteRecordId =
+        "";
+
+}
+
+
+/* ==========================================
+   노트 → 편집기 HTML
+   ========================================== */
+
+function noteToEditorHTML(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        /<[a-z][\s\S]*>/i.test(value)
+    ) {
+
+        return value;
+
+    }
+
+
+    let s =
+        escapeHTML(value);
+
+
+    s =
+        s
+
+            .replace(
+                /\*\*(.+?)\*\*/g,
+                "<strong>$1</strong>"
+            )
+
+            .replace(
+                /__(.+?)__/g,
+                "<strong>$1</strong>"
+            )
+
+            .replace(
+                /\*(.+?)\*/g,
+                "<em>$1</em>"
+            )
+
+            .replace(
+                /_(.+?)_/g,
+                "<em>$1</em>"
+            )
+
+            .replace(
+                /\n/g,
+                "<br>"
+            );
+
+
+    return s;
+
+}
+
+
+/* ==========================================
+   편집기 HTML 정리
+   ========================================== */
+
+function cleanEditorHTML() {
+
+    const editor =
+        document.getElementById(
+            "noteEditorContent"
+        );
+
+
+    const clone =
+        editor.cloneNode(true);
+
+
+    clone
+        .querySelectorAll("*")
+        .forEach(
+            function(el) {
+
+                el.removeAttribute(
+                    "contenteditable"
+                );
+
+
+                el.removeAttribute(
+                    "id"
+                );
+
+
+                el.removeAttribute(
+                    "class"
+                );
+
+
+                const style =
+                    el.getAttribute(
+                        "style"
+                    );
+
+
+                if (style) {
+
+                    const allowed =
+                        [];
+
+
+                    if (
+                        el.style.fontSize
+                    ) {
+
+                        allowed.push(
+                            "font-size:" +
+                            el.style.fontSize
+                        );
+
+                    }
+
+
+                    if (
+                        el.style.textAlign
+                    ) {
+
+                        allowed.push(
+                            "text-align:" +
+                            el.style.textAlign
+                        );
+
+                    }
+
+
+                    if (
+                        allowed.length
+                    ) {
+
+                        el.setAttribute(
+                            "style",
+                            allowed.join(";")
+                        );
+
+                    }
+
+                    else {
+
+                        el.removeAttribute(
+                            "style"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    return clone.innerHTML.trim();
+
+}
+
+
+/* ==========================================
+   노트 저장
+   ========================================== */
+
+async function saveNoteEditor() {
+
+    if (
+        !currentNoteRecordId
+    ) {
+        return;
+    }
+
+
+    const status =
+        document.getElementById(
+            "noteEditorStatus"
+        );
+
+
+    const html =
+        cleanEditorHTML();
+
+
+    status.textContent =
+        "저장 중...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            recordId:
+                                currentNoteRecordId,
+
+                            note:
+                                html
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.error ||
+                "저장에 실패했습니다."
+            );
+
+        }
+
+
+        status.textContent =
+            "저장되었습니다.";
+
+
+        const currentTopic =
+            document.getElementById(
+                "topicTitle"
+            ).textContent;
+
+
+        setTimeout(
+            async function() {
+
+                closeNoteEditor();
+
+                await loadData(
+                    currentTopic
+                );
+
+            },
+            500
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        status.textContent =
+            "저장 실패: " +
+            error.message;
+
+    }
+
+}
+
+</script>
+
+
+
+<!-- ==========================================
+     PC 노트 편집기
+     ========================================== -->
+
+<div
+    id="noteEditorOverlay"
+    class="note-editor-overlay"
+    style="display:none;"
+>
+
+    <div
+        class="note-editor"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="note-editor-head">
+
+            <div
+                class="note-editor-title"
+                id="noteEditorTitle"
+            >
+                노트 편집
+            </div>
+
+
+            <button
+                type="button"
+                onclick="closeNoteEditor()"
+                aria-label="닫기"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="note-editor-toolbar">
+
+            <select
+                id="noteFontSize"
+                onchange="applyNoteSize(this.value)"
+            >
+
+                <option value="16px">
+                    기본 16
+                </option>
+
+                <option value="14px">
+                    작게 14
+                </option>
+
+                <option value="18px">
+                    18
+                </option>
+
+                <option value="22px">
+                    22
+                </option>
+
+                <option value="28px">
+                    28
+                </option>
+
+                <option value="34px">
+                    34
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('bold')"
+            >
+                <b>B</b>
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('italic')"
+            >
+                <i>I</i>
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('underline')"
+            >
+                <u>U</u>
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('justifyLeft')"
+            >
+                왼쪽
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('justifyCenter')"
+            >
+                가운데
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('justifyRight')"
+            >
+                오른쪽
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('insertUnorderedList')"
+            >
+                • 목록
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('insertOrderedList')"
+            >
+                1. 목록
+            </button>
+
+
+            <button
+                type="button"
+                onclick="noteCommand('removeFormat')"
+            >
+                서식 지우기
+            </button>
+
+        </div>
+
+
+        <div class="note-editor-body">
+
+            <div
+                id="noteEditorContent"
+                class="note-editor-content"
+                contenteditable="true"
+            ></div>
+
+        </div>
+
+
+        <div class="note-editor-foot">
+
+            <span
+                id="noteEditorStatus"
+                class="note-status"
+            ></span>
+
+
+            <button
+                type="button"
+                onclick="closeNoteEditor()"
+            >
+                취소
+            </button>
+
+
+            <button
+                type="button"
+                class="note-save"
+                onclick="saveNoteEditor()"
+            >
+                저장
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
