@@ -1143,10 +1143,11 @@ function renderRecords(records) {
            링크 자료
            ========================= */
 
-        if (
-            type === "링크" &&
-            link
-        ) {
+        /*
+         * 링크 주소가 있으면 자료명과 관계없이 링크 자료로 표시합니다.
+         * 고난[시련]의 기존 링크 자료도 이 조건으로 정상 표시됩니다.
+         */
+        if (link) {
 
             html += `
                 <div class="data-card">
