@@ -339,7 +339,7 @@ body.topic-mode .container {
     border-radius:10px;
     color:#333;
     line-height:1.8;
-    text-align:left;
+    text-align: left;
     overflow-wrap:anywhere;
 }
 .note-view .note-p{margin:0 0 10px}
@@ -1290,13 +1290,6 @@ function renderRecords(records) {
                         </div>
                         `
                     }
-
-                    <button
-                        type="button"
-                        class="note-edit-button"
-                        onclick="openNoteEditor(${JSON.stringify(record.id)}, ${JSON.stringify(title || "노트")}, ${JSON.stringify(note || "")})">
-                        PC에서 노트 편집
-                    </button>
 
                     ${imageHTML}
 
