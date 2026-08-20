@@ -198,6 +198,46 @@ body.topic-mode .container {
 }
 
 /* =========================
+   노트
+   ========================= */
+
+.note-box {
+    margin-top: 12px;
+    padding: 15px;
+    background: #f5f7f6;
+    border-radius: 10px;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+/* =========================
+   이미지
+   ========================= */
+
+.image-box {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.image-box img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.image-caption {
+    margin-top: 8px;
+    color: #666;
+    font-size: 13px;
+}
+
+/* =========================
    링크
    ========================= */
 
@@ -900,154 +940,254 @@ function cleanBibleText(text) {
 function renderRecords(records) {
 
     const area =
-        document.getElementById(
-            "topicData"
-        );
+        document.getElementById("topicData");
 
     let html = "";
 
+    records.forEach(function(record) {
 
-    records.forEach(
-        function(record) {
+        const fields =
+            record.fields || {};
 
-            const fields =
-                record.fields || {};
+        const type =
+            fields["자료명"] || "";
 
+        const title =
+            fields["기록명"] ||
+            fields["자료명"] ||
+            "";
 
-            const type =
-                fields["자료명"] || "";
+        const bible =
+            fields["성구"] || "";
 
+        const link =
+            getURL(fields["링크"]);
 
-            const title =
-                fields["기록명"] || "";
+        const note =
+            fields["노트"] || "";
 
+        const imageValue =
+            fields["이미지"];
 
-            const bible =
-                fields["성구"] || "";
+        let imageHTML = "";
 
+        if (Array.isArray(imageValue)) {
 
-            const link =
-                getURL(
-                    fields["링크"]
-                );
+            imageValue.forEach(function(file) {
 
+                if (file && file.url) {
 
-            /* =========================
-               링크 자료
-               ========================= */
+                    const fileName =
+                        file.filename || "";
 
-            if (
-                type === "링크" &&
-                link
-            ) {
+                    imageHTML += `
+                        <div class="image-box">
+                            <a
+                                href="${escapeHTML(file.url)}"
+                                target="_blank"
+                                rel="noopener noreferrer">
 
-                html += `
-                    <div class="data-card">
+                                <img
+                                    src="${escapeHTML(file.url)}"
+                                    alt="${escapeHTML(fileName)}">
 
-                        ${
-                            title
-                            ? `
-                            <div style="
-                                margin-bottom:12px;
-                                font-size:18px;
-                                font-weight:700;
-                                line-height:1.45;">
+                            </a>
 
-                                ${escapeHTML(title)}
+                            ${
+                                fileName
+                                ? `
+                                <div class="image-caption">
+                                    ${escapeHTML(fileName)}
+                                </div>
+                                `
+                                : ""
+                            }
+                        </div>
+                    `;
+                }
+            });
 
-                            </div>
-                            `
-                            : ""
-                        }
+        } else {
 
+            const imageURL =
+                getURL(imageValue);
+
+            if (imageURL) {
+
+                imageHTML = `
+                    <div class="image-box">
                         <a
-                            class="link-button"
-                            href="${escapeHTML(link)}"
+                            href="${escapeHTML(imageURL)}"
                             target="_blank"
                             rel="noopener noreferrer">
 
-                            자료 보기 ↗
+                            <img
+                                src="${escapeHTML(imageURL)}"
+                                alt="이미지">
 
                         </a>
-
                     </div>
                 `;
-
-                return;
             }
+        }
 
 
-            /* =========================
-               성구 자료
-               ========================= */
+        /* =========================
+           링크 자료
+           ========================= */
 
-            if (
-                type === "성구" &&
-                bible
-            ) {
+        if (
+            type === "링크" &&
+            link
+        ) {
 
-                const bibleText =
-                    cleanBibleText(
-                        record.bibleText
-                    );
+            html += `
+                <div class="data-card">
 
+                    ${
+                        title
+                        ? `
+                        <div style="
+                            margin-bottom:12px;
+                            font-size:18px;
+                            font-weight:700;
+                            line-height:1.45;">
 
-                const url =
-                    record.bibleUrl ||
-                    bibleURL(bible);
-
-
-                html += `
-                    <div class="data-card">
-
-                        <div class="bible-title">
-
-                            ${escapeHTML(bible)}
+                            ${escapeHTML(title)}
 
                         </div>
+                        `
+                        : ""
+                    }
 
+                    <a
+                        class="link-button"
+                        href="${escapeHTML(link)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
 
-                        ${
-                            bibleText
-                            ? `
-                            <div class="bible-text">
+                        자료 보기 ↗
 
-                                ${escapeHTML(
-                                    bibleText
-                                )}
+                    </a>
 
-                            </div>
-                            `
-                            : `
-                            <div style="
-                                margin-top:15px;
-                                color:#777;
-                                font-size:14px;">
+                </div>
+            `;
 
-                                성구 내용을 불러오지 못했습니다.
-
-                            </div>
-                            `
-                        }
-
-
-                        <a
-                            class="bible-button"
-                            href="${escapeHTML(url)}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-
-                            성구 보기
-
-                        </a>
-
-                    </div>
-                `;
-
-            }
-
+            return;
         }
-    );
+
+
+        /* =========================
+           성구 자료
+           ========================= */
+
+        if (
+            type === "성구" &&
+            bible
+        ) {
+
+            const bibleText =
+                cleanBibleText(
+                    record.bibleText
+                );
+
+            const url =
+                record.bibleUrl ||
+                bibleURL(bible);
+
+
+            html += `
+                <div class="data-card">
+
+                    <div class="bible-title">
+                        ${escapeHTML(bible)}
+                    </div>
+
+                    ${
+                        bibleText
+                        ? `
+                        <div class="bible-text">
+                            ${escapeHTML(bibleText)}
+                        </div>
+                        `
+                        : `
+                        <div style="
+                            margin-top:15px;
+                            color:#777;
+                            font-size:14px;">
+
+                            성구 내용을 불러오지 못했습니다.
+
+                        </div>
+                        `
+                    }
+
+                    <a
+                        class="bible-button"
+                        href="${escapeHTML(url)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        성구 보기 ↗
+
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* =========================
+           노트 / 이미지
+           ========================= */
+
+        if (
+            note ||
+            imageHTML
+        ) {
+
+            html += `
+                <div class="data-card">
+
+                    ${
+                        title &&
+                        type !== "노트" &&
+                        type !== "이미지"
+                        ? `
+                        <div style="
+                            margin-bottom:12px;
+                            font-size:18px;
+                            font-weight:700;
+                            line-height:1.45;">
+
+                            ${escapeHTML(title)}
+
+                        </div>
+                        `
+                        : ""
+                    }
+
+                    ${
+                        note
+                        ? `
+                        <div class="note-box">
+                            ${escapeHTML(note)}
+                        </div>
+                        `
+                        : ""
+                    }
+
+                    ${imageHTML}
+
+                </div>
+            `;
+
+            return;
+        }
+
+    });
 
 
     if (!html) {
@@ -1060,9 +1200,9 @@ function renderRecords(records) {
     }
 
 
-    area.innerHTML =
-        html;
+    area.innerHTML = html;
 }
+
 
 </script>
 
