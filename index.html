@@ -302,6 +302,7 @@ body.topic-mode .container {
     margin-top: 15px;
     padding: 14px;
 
+    /* 성구 보기는 기존 초록색 그대로 */
     background: #3f7f4a;
 
     border-radius: 10px;
@@ -328,7 +329,8 @@ body.topic-mode .container {
 
     padding: 14px;
 
-    background: #3f7f4a;
+    /* 자료 보기만 연두색 */
+    background: #8bc34a;
 
     border-radius: 10px;
 
@@ -422,7 +424,6 @@ body.topic-mode .container {
 
     line-height: 1.6;
 }
-
 
 
 /* ==================================================
@@ -530,6 +531,7 @@ body.topic-mode .container {
     font-weight: 700;
 }
 
+
 /* ==================================================
    모바일
    ================================================== */
@@ -586,10 +588,21 @@ body.topic-mode .container {
 <body>
 
 <div id="passwordLock">
+
     <div class="password-box">
-        <div class="password-icon"><img src="bs-192.png" alt="봉사준비 아이콘"></div>
-        <div class="password-title">봉사를 위한 준비</div>
-        <div class="password-subtitle">비밀번호를 입력해 주세요</div>
+
+        <div class="password-icon">
+            <img src="bs-192.png" alt="봉사준비 아이콘">
+        </div>
+
+        <div class="password-title">
+            봉사를 위한 준비
+        </div>
+
+        <div class="password-subtitle">
+            비밀번호를 입력해 주세요
+        </div>
+
 
         <input
             id="passwordInput"
@@ -601,12 +614,16 @@ body.topic-mode .container {
             placeholder="••••"
             aria-label="비밀번호">
 
+
         <button
             class="password-button"
             type="button"
             onclick="checkPassword()">
+
             들어가기
+
         </button>
+
 
         <label style="
             display:flex;
@@ -618,15 +635,21 @@ body.topic-mode .container {
             font-size:14px;
             cursor:pointer;
         ">
+
             <input
                 id="rememberPassword"
                 type="checkbox"
                 style="width:17px;height:17px;accent-color:#3f7f4a;">
+
             이 기기에 비밀번호 저장
+
         </label>
 
+
         <div id="passwordError" class="password-error"></div>
+
     </div>
+
 </div>
 
 
@@ -949,7 +972,6 @@ async function openTopic(topic) {
 
 /* ==================================================
    Worker에서 현재 주제 자료 가져오기
-   ★ 핵심 수정 부분
    ================================================== */
 
 async function loadData(topic) {
@@ -961,11 +983,6 @@ async function loadData(topic) {
 
 
     try {
-
-        /*
-         * Worker가 요구하는 topic을
-         * URL에 반드시 붙입니다.
-         */
 
         const url =
             API_URL +
@@ -1028,19 +1045,9 @@ async function loadData(topic) {
         }
 
 
-        /*
-         * Worker가 이미 해당 topic의
-         * 자료만 보내므로 여기서 다시
-         * 메뉴를 필터링하지 않습니다.
-         */
-
         const records =
             data.records;
 
-
-        /*
-         * Airtable 순서
-         */
 
         records.sort(
             function(a, b) {
@@ -1309,16 +1316,7 @@ function renderRecords(records) {
                 record.fields || {};
 
 
-            /*
-             * ★ 자료명
-             *
-             * 이제 자료명은
-             * 사용자가 원하는 제목입니다.
-             *
-             * 예:
-             * 부지런한 사람
-             * 불교를 믿는 사람
-             */
+            /* 자료명 */
 
             const title =
                 String(
@@ -1328,13 +1326,7 @@ function renderRecords(records) {
                 ).trim();
 
 
-            /*
-             * ★ 성구
-             *
-             * 자료명이 무엇이든
-             * 성구 필드에 값이 있으면
-             * 성구 자료입니다.
-             */
+            /* 성구 */
 
             const bible =
                 String(
@@ -1397,6 +1389,7 @@ function renderRecords(records) {
                     }
                 );
 
+
             } else {
 
                 const imageURL =
@@ -1428,7 +1421,7 @@ function renderRecords(records) {
 
 
             /* ==========================================
-               ★ 성구 자료
+               성구 자료
                ========================================== */
 
             if (bible) {
@@ -1451,9 +1444,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                            <div class="record-title">
-                                ${escapeHTML(title)}
-                            </div>
+                                <div class="record-title">
+                                    ${escapeHTML(title)}
+                                </div>
                             `
                             : ""
                         }
@@ -1467,20 +1460,20 @@ function renderRecords(records) {
                         ${
                             bibleText
                             ? `
-                            <div class="bible-text">
-                                ${escapeHTML(bibleText)}
-                            </div>
+                                <div class="bible-text">
+                                    ${escapeHTML(bibleText)}
+                                </div>
                             `
                             : `
-                            <div
-                                style="
-                                    margin-top:15px;
-                                    color:#777;
-                                    font-size:14px;
-                                "
-                            >
-                                성구 내용을 불러오지 못했습니다.
-                            </div>
+                                <div
+                                    style="
+                                        margin-top:15px;
+                                        color:#777;
+                                        font-size:14px;
+                                    "
+                                >
+                                    성구 내용을 불러오지 못했습니다.
+                                </div>
                             `
                         }
 
@@ -1517,9 +1510,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                            <div class="record-title">
-                                ${escapeHTML(title)}
-                            </div>
+                                <div class="record-title">
+                                    ${escapeHTML(title)}
+                                </div>
                             `
                             : ""
                         }
@@ -1560,9 +1553,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                            <div class="record-title">
-                                ${escapeHTML(title)}
-                            </div>
+                                <div class="record-title">
+                                    ${escapeHTML(title)}
+                                </div>
                             `
                             : ""
                         }
@@ -1571,9 +1564,9 @@ function renderRecords(records) {
                         ${
                             note
                             ? `
-                            <div class="note-view">
-                                ${renderNoteContent(note)}
-                            </div>
+                                <div class="note-view">
+                                    ${renderNoteContent(note)}
+                                </div>
                             `
                             : ""
                         }
@@ -1767,62 +1760,145 @@ function renderNoteContent(note) {
 const APP_PASSWORD = "1914";
 const PASSWORD_KEY = "bs_password_ok";
 
+
 function unlockApp() {
-    const lock = document.getElementById("passwordLock");
+
+    const lock =
+        document.getElementById(
+            "passwordLock"
+        );
+
+
     if (lock) {
         lock.style.display = "none";
     }
+
+
     document.body.style.overflow = "";
 }
 
-function checkPassword() {
-    const input = document.getElementById("passwordInput");
-    const error = document.getElementById("passwordError");
 
-    if (input.value === APP_PASSWORD) {
+function checkPassword() {
+
+    const input =
+        document.getElementById(
+            "passwordInput"
+        );
+
+
+    const error =
+        document.getElementById(
+            "passwordError"
+        );
+
+
+    if (
+        input.value === APP_PASSWORD
+    ) {
+
         const remember =
-            document.getElementById("rememberPassword").checked;
+            document.getElementById(
+                "rememberPassword"
+            ).checked;
+
 
         if (remember) {
-            localStorage.setItem(PASSWORD_KEY, "1");
+
+            localStorage.setItem(
+                PASSWORD_KEY,
+                "1"
+            );
+
         } else {
-            sessionStorage.setItem(PASSWORD_KEY, "1");
-            localStorage.removeItem(PASSWORD_KEY);
+
+            sessionStorage.setItem(
+                PASSWORD_KEY,
+                "1"
+            );
+
+            localStorage.removeItem(
+                PASSWORD_KEY
+            );
         }
 
+
         unlockApp();
+
         input.value = "";
+
         error.textContent = "";
+
     } else {
-        error.textContent = "비밀번호가 올바르지 않습니다.";
+
+        error.textContent =
+            "비밀번호가 올바르지 않습니다.";
+
         input.value = "";
+
         input.focus();
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("passwordInput");
 
-    if (
-        localStorage.getItem(PASSWORD_KEY) === "1" ||
-        sessionStorage.getItem(PASSWORD_KEY) === "1"
-    ) {
-        unlockApp();
-    } else {
-        document.body.style.overflow = "hidden";
-        setTimeout(function () {
-            if (input) input.focus();
-        }, 100);
-    }
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    if (input) {
-        input.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
-        });
+        const input =
+            document.getElementById(
+                "passwordInput"
+            );
+
+
+        if (
+            localStorage.getItem(
+                PASSWORD_KEY
+            ) === "1" ||
+
+            sessionStorage.getItem(
+                PASSWORD_KEY
+            ) === "1"
+        ) {
+
+            unlockApp();
+
+        } else {
+
+            document.body.style.overflow =
+                "hidden";
+
+
+            setTimeout(
+                function() {
+
+                    if (input) {
+                        input.focus();
+                    }
+
+                },
+                100
+            );
+        }
+
+
+        if (input) {
+
+            input.addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+                        checkPassword();
+                    }
+
+                }
+            );
+        }
+
     }
-});
+);
 
 </script>
 
