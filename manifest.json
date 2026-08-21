@@ -1,0 +1,17 @@
+{
+  "name": "봉사를 위한 준비",
+  "short_name": "봉사",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#eef6ef",
+  "theme_color": "#4d8f59",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
