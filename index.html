@@ -302,7 +302,6 @@ body.topic-mode .container {
     margin-top: 15px;
     padding: 14px;
 
-    /* 성구 보기는 기존 초록색 그대로 */
     background: #3f7f4a;
 
     border-radius: 10px;
@@ -329,8 +328,7 @@ body.topic-mode .container {
 
     padding: 14px;
 
-    /* 자료 보기만 연두색 */
-    background: #8bc34a;
+    background: #3f7f4a;
 
     border-radius: 10px;
 
@@ -426,6 +424,7 @@ body.topic-mode .container {
 }
 
 
+
 /* ==================================================
    비밀번호 잠금
    ================================================== */
@@ -466,14 +465,6 @@ body.topic-mode .container {
     box-shadow:
         inset 0 3px 4px rgba(255,255,255,.35),
         0 5px 12px rgba(0,0,0,.18);
-    overflow: hidden;
-}
-
-.password-icon img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
 }
 
 .password-title {
@@ -531,7 +522,6 @@ body.topic-mode .container {
     font-weight: 700;
 }
 
-
 /* ==================================================
    모바일
    ================================================== */
@@ -572,6 +562,100 @@ body.topic-mode .container {
     }
 }
 
+
+/* ===== 추가: 화면 설정 ===== */
+.header{
+    position:relative;
+}
+#screenSettingsButton{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:42px;
+    height:42px;
+    padding:0;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.14);
+    color:#fff;
+    font-size:24px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:20;
+}
+#screenSettingsPanel{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:none;
+    align-items:flex-start;
+    justify-content:flex-end;
+    background:rgba(0,0,0,.5);
+}
+#screenSettingsPanel.open{
+    display:flex;
+}
+.screen-settings-box{
+    width:min(320px,88vw);
+    margin:70px 12px 0 0;
+    padding:20px;
+    border-radius:16px;
+    background:#fff;
+    color:#222;
+    box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.screen-settings-box h3{
+    margin:0 0 18px;
+    font-size:20px;
+}
+.screen-theme-buttons{
+    display:flex;
+    gap:10px;
+}
+.screen-theme-buttons button{
+    flex:1;
+    padding:12px 8px;
+    border:1px solid #bbb;
+    border-radius:10px;
+    background:#fff;
+    color:#222;
+    font-size:15px;
+    font-weight:700;
+}
+.screen-theme-buttons button.active{
+    background:#3f7f4a;
+    border-color:#3f7f4a;
+    color:#fff;
+}
+.screen-settings-close{
+    width:100%;
+    margin-top:14px;
+    padding:11px;
+    border:0;
+    border-radius:10px;
+    background:#eee;
+    color:#222;
+    font-weight:700;
+}
+body.screen-light{
+    background:#f5f7f6 !important;
+}
+body.screen-dark{
+    background:#111 !important;
+    color:#eee !important;
+}
+body.screen-dark .container{
+    color:#eee;
+}
+body.screen-dark .topic-page,
+body.screen-dark #topicPage{
+    color:#eee;
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -588,21 +672,10 @@ body.topic-mode .container {
 <body>
 
 <div id="passwordLock">
-
     <div class="password-box">
-
-        <div class="password-icon">
-            <img src="bs-192.png" alt="봉사준비 아이콘">
-        </div>
-
-        <div class="password-title">
-            봉사를 위한 준비
-        </div>
-
-        <div class="password-subtitle">
-            비밀번호를 입력해 주세요
-        </div>
-
+        <div class="password-icon">봉사</div>
+        <div class="password-title">봉사를 위한 준비</div>
+        <div class="password-subtitle">비밀번호를 입력해 주세요</div>
 
         <input
             id="passwordInput"
@@ -614,16 +687,12 @@ body.topic-mode .container {
             placeholder="••••"
             aria-label="비밀번호">
 
-
         <button
             class="password-button"
             type="button"
             onclick="checkPassword()">
-
             들어가기
-
         </button>
-
 
         <label style="
             display:flex;
@@ -635,26 +704,21 @@ body.topic-mode .container {
             font-size:14px;
             cursor:pointer;
         ">
-
             <input
                 id="rememberPassword"
                 type="checkbox"
                 style="width:17px;height:17px;accent-color:#3f7f4a;">
-
             이 기기에 비밀번호 저장
-
         </label>
 
-
         <div id="passwordError" class="password-error"></div>
-
     </div>
-
 </div>
 
 
 <div class="header">
-    봉사를 위한 준비
+    <span>봉사를 위한 준비</span>
+    <button id="screenSettingsButton" type="button" aria-label="화면 설정">⚙️</button>
 </div>
 
 
@@ -972,6 +1036,7 @@ async function openTopic(topic) {
 
 /* ==================================================
    Worker에서 현재 주제 자료 가져오기
+   ★ 핵심 수정 부분
    ================================================== */
 
 async function loadData(topic) {
@@ -983,6 +1048,11 @@ async function loadData(topic) {
 
 
     try {
+
+        /*
+         * Worker가 요구하는 topic을
+         * URL에 반드시 붙입니다.
+         */
 
         const url =
             API_URL +
@@ -1045,9 +1115,19 @@ async function loadData(topic) {
         }
 
 
+        /*
+         * Worker가 이미 해당 topic의
+         * 자료만 보내므로 여기서 다시
+         * 메뉴를 필터링하지 않습니다.
+         */
+
         const records =
             data.records;
 
+
+        /*
+         * Airtable 순서
+         */
 
         records.sort(
             function(a, b) {
@@ -1316,7 +1396,16 @@ function renderRecords(records) {
                 record.fields || {};
 
 
-            /* 자료명 */
+            /*
+             * ★ 자료명
+             *
+             * 이제 자료명은
+             * 사용자가 원하는 제목입니다.
+             *
+             * 예:
+             * 부지런한 사람
+             * 불교를 믿는 사람
+             */
 
             const title =
                 String(
@@ -1326,7 +1415,13 @@ function renderRecords(records) {
                 ).trim();
 
 
-            /* 성구 */
+            /*
+             * ★ 성구
+             *
+             * 자료명이 무엇이든
+             * 성구 필드에 값이 있으면
+             * 성구 자료입니다.
+             */
 
             const bible =
                 String(
@@ -1389,7 +1484,6 @@ function renderRecords(records) {
                     }
                 );
 
-
             } else {
 
                 const imageURL =
@@ -1421,7 +1515,7 @@ function renderRecords(records) {
 
 
             /* ==========================================
-               성구 자료
+               ★ 성구 자료
                ========================================== */
 
             if (bible) {
@@ -1444,9 +1538,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                                <div class="record-title">
-                                    ${escapeHTML(title)}
-                                </div>
+                            <div class="record-title">
+                                ${escapeHTML(title)}
+                            </div>
                             `
                             : ""
                         }
@@ -1460,20 +1554,20 @@ function renderRecords(records) {
                         ${
                             bibleText
                             ? `
-                                <div class="bible-text">
-                                    ${escapeHTML(bibleText)}
-                                </div>
+                            <div class="bible-text">
+                                ${escapeHTML(bibleText)}
+                            </div>
                             `
                             : `
-                                <div
-                                    style="
-                                        margin-top:15px;
-                                        color:#777;
-                                        font-size:14px;
-                                    "
-                                >
-                                    성구 내용을 불러오지 못했습니다.
-                                </div>
+                            <div
+                                style="
+                                    margin-top:15px;
+                                    color:#777;
+                                    font-size:14px;
+                                "
+                            >
+                                성구 내용을 불러오지 못했습니다.
+                            </div>
                             `
                         }
 
@@ -1510,9 +1604,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                                <div class="record-title">
-                                    ${escapeHTML(title)}
-                                </div>
+                            <div class="record-title">
+                                ${escapeHTML(title)}
+                            </div>
                             `
                             : ""
                         }
@@ -1553,9 +1647,9 @@ function renderRecords(records) {
                         ${
                             title
                             ? `
-                                <div class="record-title">
-                                    ${escapeHTML(title)}
-                                </div>
+                            <div class="record-title">
+                                ${escapeHTML(title)}
+                            </div>
                             `
                             : ""
                         }
@@ -1564,9 +1658,9 @@ function renderRecords(records) {
                         ${
                             note
                             ? `
-                                <div class="note-view">
-                                    ${renderNoteContent(note)}
-                                </div>
+                            <div class="note-view">
+                                ${renderNoteContent(note)}
+                            </div>
                             `
                             : ""
                         }
@@ -1760,146 +1854,123 @@ function renderNoteContent(note) {
 const APP_PASSWORD = "1914";
 const PASSWORD_KEY = "bs_password_ok";
 
-
 function unlockApp() {
-
-    const lock =
-        document.getElementById(
-            "passwordLock"
-        );
-
-
+    const lock = document.getElementById("passwordLock");
     if (lock) {
         lock.style.display = "none";
     }
-
-
     document.body.style.overflow = "";
 }
 
-
 function checkPassword() {
+    const input = document.getElementById("passwordInput");
+    const error = document.getElementById("passwordError");
 
-    const input =
-        document.getElementById(
-            "passwordInput"
-        );
-
-
-    const error =
-        document.getElementById(
-            "passwordError"
-        );
-
-
-    if (
-        input.value === APP_PASSWORD
-    ) {
-
+    if (input.value === APP_PASSWORD) {
         const remember =
-            document.getElementById(
-                "rememberPassword"
-            ).checked;
-
+            document.getElementById("rememberPassword").checked;
 
         if (remember) {
-
-            localStorage.setItem(
-                PASSWORD_KEY,
-                "1"
-            );
-
+            localStorage.setItem(PASSWORD_KEY, "1");
         } else {
-
-            sessionStorage.setItem(
-                PASSWORD_KEY,
-                "1"
-            );
-
-            localStorage.removeItem(
-                PASSWORD_KEY
-            );
+            sessionStorage.setItem(PASSWORD_KEY, "1");
+            localStorage.removeItem(PASSWORD_KEY);
         }
 
-
         unlockApp();
-
         input.value = "";
-
         error.textContent = "";
-
     } else {
-
-        error.textContent =
-            "비밀번호가 올바르지 않습니다.";
-
+        error.textContent = "비밀번호가 올바르지 않습니다.";
         input.value = "";
-
         input.focus();
     }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("passwordInput");
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        const input =
-            document.getElementById(
-                "passwordInput"
-            );
-
-
-        if (
-            localStorage.getItem(
-                PASSWORD_KEY
-            ) === "1" ||
-
-            sessionStorage.getItem(
-                PASSWORD_KEY
-            ) === "1"
-        ) {
-
-            unlockApp();
-
-        } else {
-
-            document.body.style.overflow =
-                "hidden";
-
-
-            setTimeout(
-                function() {
-
-                    if (input) {
-                        input.focus();
-                    }
-
-                },
-                100
-            );
-        }
-
-
-        if (input) {
-
-            input.addEventListener(
-                "keydown",
-                function(event) {
-
-                    if (
-                        event.key === "Enter"
-                    ) {
-                        checkPassword();
-                    }
-
-                }
-            );
-        }
-
+    if (
+        localStorage.getItem(PASSWORD_KEY) === "1" ||
+        sessionStorage.getItem(PASSWORD_KEY) === "1"
+    ) {
+        unlockApp();
+    } else {
+        document.body.style.overflow = "hidden";
+        setTimeout(function () {
+            if (input) input.focus();
+        }, 100);
     }
-);
 
+    if (input) {
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    }
+});
+
+</script>
+
+
+<!-- ===== 추가: 화면 설정 ===== -->
+<div id="screenSettingsPanel" aria-hidden="true">
+    <div class="screen-settings-box">
+        <h3>화면 설정</h3>
+        <div class="screen-theme-buttons">
+            <button id="screenLightButton" type="button">☀️ 밝게</button>
+            <button id="screenDarkButton" type="button">🌙 어둡게</button>
+        </div>
+        <button id="screenSettingsClose" class="screen-settings-close" type="button">닫기</button>
+    </div>
+</div>
+
+<script>
+/* ===== 추가: 화면 설정 기능만 담당 ===== */
+(function(){
+    const panel = document.getElementById("screenSettingsPanel");
+    const openButton = document.getElementById("screenSettingsButton");
+    const closeButton = document.getElementById("screenSettingsClose");
+    const lightButton = document.getElementById("screenLightButton");
+    const darkButton = document.getElementById("screenDarkButton");
+
+    function setScreenTheme(mode){
+        document.body.classList.remove("screen-light", "screen-dark");
+        document.body.classList.add("screen-" + mode);
+        localStorage.setItem("bsScreenTheme", mode);
+
+        lightButton.classList.toggle("active", mode === "light");
+        darkButton.classList.toggle("active", mode === "dark");
+    }
+
+    setScreenTheme(localStorage.getItem("bsScreenTheme") || "light");
+
+    openButton.addEventListener("click", function(){
+        panel.classList.add("open");
+        panel.setAttribute("aria-hidden", "false");
+    });
+
+    closeButton.addEventListener("click", function(){
+        panel.classList.remove("open");
+        panel.setAttribute("aria-hidden", "true");
+    });
+
+    panel.addEventListener("click", function(event){
+        if(event.target === panel){
+            panel.classList.remove("open");
+            panel.setAttribute("aria-hidden", "true");
+        }
+    });
+
+    lightButton.addEventListener("click", function(){
+        setScreenTheme("light");
+    });
+
+    darkButton.addEventListener("click", function(){
+        setScreenTheme("dark");
+    });
+})();
 </script>
 
 </body>
