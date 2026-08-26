@@ -648,10 +648,11 @@ body.topic-mode .container {
     font-weight:700;
 }
 body.screen-light{
-    background:#3f7f4a !important;
+    background:#ffffff !important;
+    color:#222 !important;
 }
 body.screen-dark{
-    background:#3f7f4a !important;
+    background:#111 !important;
     color:#eee !important;
 }
 body.screen-dark .container{
@@ -660,6 +661,19 @@ body.screen-dark .container{
 body.screen-dark .topic-page,
 body.screen-dark #topicPage{
     color:#eee;
+}
+
+
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:env(safe-area-inset-top);
+    background:#3f7f4a;
+    z-index:99998;
+    pointer-events:none;
 }
 
 </style>
