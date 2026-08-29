@@ -571,9 +571,6 @@ body.topic-mode .container {
 
 /* ==================================================
    화면 테마 설정
-   - bb2와 동일한 오른쪽 상단 ⚙️ 메뉴
-   - 화면 배경만 변경
-   - 기존 메뉴/자료 기능은 변경하지 않음
 ================================================== */
 
 .settings-wrap{
@@ -641,7 +638,7 @@ body.topic-mode .container {
 
 
 /* ==================================================
-   ★ 글자 크기 설정
+   ★ 글자 크기 버튼
 ================================================== */
 
 .font-size-option{
@@ -663,10 +660,16 @@ body.topic-mode .container {
     background:#ccebf5;
 }
 
+
+/* ==================================================
+   ★ 글자 크기 조절 패널
+   <  현재크기  >
+================================================== */
+
 .font-size-panel{
     display:none;
     margin:6px 4px 4px;
-    padding:10px 10px 8px;
+    padding:7px 6px;
     background:#f4fbfe;
     border-radius:12px;
     border:1px solid #d7edf5;
@@ -676,32 +679,42 @@ body.topic-mode .container {
     display:block;
 }
 
-.font-size-label{
+.font-size-controls{
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    margin-bottom:6px;
-    color:#4c6874;
-    font-size:13px;
-    font-weight:700;
-}
-
-.font-size-value{
-    color:#31596b;
-    font-weight:800;
-}
-
-.font-size-range{
-    display:block;
+    justify-content:center;
     width:100%;
-    height:30px;
-    margin:0;
-    accent-color:#78b8cf;
+}
+
+.font-size-arrow{
+    width:42px;
+    height:38px;
+    padding:0;
+    border:0;
+    border-radius:9px;
+    background:transparent;
+    color:#31596b;
+    font-size:24px;
+    font-weight:900;
+    line-height:1;
     cursor:pointer;
 }
 
+.font-size-arrow:active{
+    background:#dceef5;
+    transform:scale(.92);
+}
 
-/* 어두운 화면: 배경만 변경 */
+.font-size-value{
+    min-width:65px;
+    text-align:center;
+    color:#111111;
+    font-size:17px;
+    font-weight:900;
+}
+
+
+/* 어두운 화면 */
 body.dark-theme,
 html.dark-theme{
     background:#18212b;
@@ -711,12 +724,10 @@ body.dark-theme{
     color:#172033;
 }
 
-/* 어두운 화면에서 상단 제목은 흰색 */
 body.dark-theme .header{
     color:#ffffff;
 }
 
-/* 설정 버튼/메뉴는 어두운 배경에서 읽기 좋게 */
 body.dark-theme .settings-button{
     background:rgba(38,49,61,.94);
     color:#e9eef3;
@@ -738,7 +749,8 @@ body.dark-theme .theme-option:active{
 
 
 /* ==================================================
-   ★ 어두운 화면의 글자 크기 설정
+   ★ 어두운 화면 글자 크기 설정
+   가운데 현재 크기는 흰색
 ================================================== */
 
 body.dark-theme .font-size-option{
@@ -751,12 +763,16 @@ body.dark-theme .font-size-panel{
     border-color:#405663;
 }
 
-body.dark-theme .font-size-label{
-    color:#d7e6ec;
+body.dark-theme .font-size-arrow{
+    color:#e8f7fc;
+}
+
+body.dark-theme .font-size-arrow:active{
+    background:#3a515e;
 }
 
 body.dark-theme .font-size-value{
-    color:#bfeaf7;
+    color:#ffffff;
 }
 </style>
 
@@ -778,7 +794,6 @@ body.dark-theme .font-size-value{
         <div class="password-title">봉사를 위한 준비</div>
         <div class="password-subtitle">비밀번호를 입력해 주세요</div>
 
-```
     <input
         id="passwordInput"
         class="password-input"
@@ -815,7 +830,6 @@ body.dark-theme .font-size-value{
 
     <div id="passwordError" class="password-error"></div>
 </div>
-```
 
 </div>
 
@@ -823,10 +837,6 @@ body.dark-theme .font-size-value{
     <span>봉사를 위한 준비</span>
 </div>
 
-<!-- ==================================================
-     화면 설정
-     bb2와 동일한 오른쪽 상단 드롭다운
-================================================== -->
 
 <div class="settings-wrap" id="settingsWrap">
 
@@ -869,9 +879,15 @@ body.dark-theme .font-size-value{
         class="font-size-panel"
         id="fontSizePanel">
 
-        <div class="font-size-label">
+        <div class="font-size-controls">
 
-            <span>80%</span>
+            <button
+                type="button"
+                class="font-size-arrow"
+                id="fontSizeDecrease"
+                aria-label="글자 크기 5% 감소">
+                ‹
+            </button>
 
             <span
                 class="font-size-value"
@@ -879,19 +895,15 @@ body.dark-theme .font-size-value{
                 100%
             </span>
 
-            <span>150%</span>
+            <button
+                type="button"
+                class="font-size-arrow"
+                id="fontSizeIncrease"
+                aria-label="글자 크기 5% 증가">
+                ›
+            </button>
 
         </div>
-
-        <input
-            type="range"
-            class="font-size-range"
-            id="fontSizeRange"
-            min="80"
-            max="150"
-            step="1"
-            value="100"
-            aria-label="글자 크기">
 
     </div>
 
@@ -901,9 +913,6 @@ body.dark-theme .font-size-value{
 
 <main class="container">
 
-<!-- ==================================================
-     홈
-     ================================================== -->
 
 <section id="homePage">
 
@@ -1033,9 +1042,6 @@ onclick="openTopic('편지봉사'); return false;">
 
 </section>
 
-<!-- ==================================================
-     자료 화면
-     ================================================== -->
 
 <section id="topicPage">
 
@@ -1153,7 +1159,6 @@ async function openTopic(topic) {
 
 /* ==================================================
    Worker에서 현재 주제 자료 가져오기
-   ★ 핵심 수정 부분
    ================================================== */
 
 async function loadData(topic) {
@@ -1165,11 +1170,6 @@ async function loadData(topic) {
 
 
     try {
-
-        /*
-         * Worker가 요구하는 topic을
-         * URL에 반드시 붙입니다.
-         */
 
         const url =
             API_URL +
@@ -1232,19 +1232,9 @@ async function loadData(topic) {
         }
 
 
-        /*
-         * Worker가 이미 해당 topic의
-         * 자료만 보내므로 여기서 다시
-         * 메뉴를 필터링하지 않습니다.
-         */
-
         const records =
             data.records;
 
-
-        /*
-         * Airtable 순서
-         */
 
         records.sort(
             function(a, b) {
@@ -1517,13 +1507,6 @@ function renderRecords(records) {
                 record.fields || {};
 
 
-            /*
-             * ★ 자료명
-             *
-             * 이제 자료명은
-             * 사용자가 원하는 제목입니다.
-             */
-
             const title =
                 String(
                     fields["자료명"] ||
@@ -1531,10 +1514,6 @@ function renderRecords(records) {
                     ""
                 ).trim();
 
-
-            /*
-             * ★ 성구
-             */
 
             const bible =
                 String(
@@ -1557,10 +1536,6 @@ function renderRecords(records) {
             const imageValue =
                 fields["이미지"];
 
-
-            /* ==========================================
-               이미지
-               ========================================== */
 
             let imageHTML = "";
 
@@ -1626,10 +1601,6 @@ function renderRecords(records) {
                 }
             }
 
-
-            /* ==========================================
-               ★ 성구 자료
-               ========================================== */
 
             if (bible) {
 
@@ -1704,10 +1675,6 @@ function renderRecords(records) {
             }
 
 
-            /* ==========================================
-               링크 자료
-               ========================================== */
-
             if (link) {
 
                 html += `
@@ -1743,10 +1710,6 @@ function renderRecords(records) {
                 return;
             }
 
-
-            /* ==========================================
-               노트 / 이미지
-               ========================================== */
 
             if (
                 note ||
@@ -1790,10 +1753,6 @@ function renderRecords(records) {
             }
 
 
-            /* ==========================================
-               자료명만 있는 경우
-               ========================================== */
-
             if (title) {
 
                 html += `
@@ -1827,7 +1786,6 @@ function renderRecords(records) {
         html;
 
 
-    /* ★ 새로 만들어진 자료에도 현재 글자 크기 적용 */
     applyFontScale();
 }
 
@@ -1846,10 +1804,6 @@ function renderNoteContent(note) {
     let value =
         String(note);
 
-
-    /*
-     * HTML이 아니면 일반 텍스트 처리
-     */
 
     if (
         !/<[a-z][\s\S]*>/i.test(value)
@@ -1879,10 +1833,6 @@ function renderNoteContent(note) {
                 );
     }
 
-
-    /*
-     * 허용 태그만 표시
-     */
 
     const template =
         document.createElement(
@@ -1936,10 +1886,6 @@ function renderNoteContent(note) {
                     return;
                 }
 
-
-                /*
-                 * 위험한 속성 제거
-                 */
 
                 [...el.attributes]
                     .forEach(
@@ -2033,9 +1979,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
 /* ==================================================
    화면 테마 설정
-   - localStorage에 선택 상태 저장
-   - 페이지를 다시 열어도 유지
-   - 메뉴/자료 기능에는 영향 없음
 ================================================== */
 
 const THEME_KEY = "bsScreenTheme";
@@ -2048,28 +1991,43 @@ const darkThemeButton = document.getElementById("darkThemeButton");
 
 /* ==================================================
    ★ 글자 크기 설정
+   80% ~ 150%
+   5% 단위
 ================================================== */
 
 const FONT_SIZE_KEY = "bsFontSize";
-const fontSizeButton = document.getElementById("fontSizeButton");
-const fontSizePanel = document.getElementById("fontSizePanel");
-const fontSizeRange = document.getElementById("fontSizeRange");
-const fontSizeValue = document.getElementById("fontSizeValue");
+
+const fontSizeButton =
+    document.getElementById("fontSizeButton");
+
+const fontSizePanel =
+    document.getElementById("fontSizePanel");
+
+const fontSizeValue =
+    document.getElementById("fontSizeValue");
+
+const fontSizeDecrease =
+    document.getElementById("fontSizeDecrease");
+
+const fontSizeIncrease =
+    document.getElementById("fontSizeIncrease");
 
 
-/*
- * 글자 크기를 적용할 때
- * 원래 크기를 한 번만 기억합니다.
- *
- * 그래서 80% → 120% → 150%처럼
- * 여러 번 움직여도 원래 크기 기준으로
- * 정확하게 계산됩니다.
- */
+/* ==================================================
+   ★ 현재 글자 크기
+================================================== */
+
+let currentFontSize = 100;
+
+
+/* ==================================================
+   ★ 글자 크기 적용
+================================================== */
 
 function applyFontScale() {
 
     const scale =
-        Number(fontSizeRange.value) / 100;
+        currentFontSize / 100;
 
 
     document
@@ -2118,11 +2076,6 @@ function applyFontScale() {
         )
         .forEach(function(el) {
 
-            /*
-             * 설정 메뉴 자체는 글자 크기
-             * 조절 대상에서 제외합니다.
-             */
-
             if (
                 document
                     .getElementById(
@@ -2154,7 +2107,7 @@ function applyFontScale() {
 
 
     fontSizeValue.textContent =
-        fontSizeRange.value + "%";
+        currentFontSize + "%";
 }
 
 
@@ -2164,8 +2117,7 @@ function applyFontScale() {
 
 function loadFontSize() {
 
-    let saved =
-        "100";
+    let saved = "100";
 
 
     try {
@@ -2190,6 +2142,10 @@ function loadFontSize() {
 
 
     value =
+        Math.round(value / 5) * 5;
+
+
+    value =
         Math.min(
             150,
             Math.max(
@@ -2199,24 +2155,20 @@ function loadFontSize() {
         );
 
 
-    fontSizeRange.value =
-        String(value);
+    currentFontSize =
+        value;
 
 
     fontSizeValue.textContent =
-        value + "%";
+        currentFontSize + "%";
 
-
-    /*
-     * 현재 화면에 존재하는 글자에 적용
-     */
 
     applyFontScale();
 }
 
 
 /* ==================================================
-   ★ A 글자 크기 버튼
+   ★ 글자 크기 버튼
 ================================================== */
 
 fontSizeButton.addEventListener(
@@ -2225,45 +2177,43 @@ fontSizeButton.addEventListener(
 
         event.stopPropagation();
 
-        const open =
-            fontSizePanel.classList.toggle(
-                "show"
-            );
-
-        /*
-         * 슬라이더를 열었을 때
-         * 현재 값 표시
-         */
+        fontSizePanel.classList.toggle(
+            "show"
+        );
 
         fontSizeValue.textContent =
-            fontSizeRange.value + "%";
+            currentFontSize + "%";
     }
 );
 
 
 /* ==================================================
-   ★ 슬라이더 움직임
+   ★ 글자 크기 감소
+   5%씩
 ================================================== */
 
-fontSizeRange.addEventListener(
-    "input",
-    function() {
+fontSizeDecrease.addEventListener(
+    "click",
+    function(event) {
 
-        const value =
-            Number(
-                fontSizeRange.value
+        event.stopPropagation();
+
+        currentFontSize =
+            Math.max(
+                80,
+                currentFontSize - 5
             );
 
 
         fontSizeValue.textContent =
-            value + "%";
+            currentFontSize + "%";
 
 
         try {
 
             localStorage.setItem(
                 FONT_SIZE_KEY,
-                String(value)
+                String(currentFontSize)
             );
 
         } catch (error) {}
@@ -2274,57 +2224,189 @@ fontSizeRange.addEventListener(
 );
 
 
-function applyTheme(theme) {
-    const isDark = theme === "dark";
+/* ==================================================
+   ★ 글자 크기 증가
+   5%씩
+================================================== */
 
-    document.body.classList.toggle("dark-theme", isDark);
-    document.documentElement.classList.toggle("dark-theme", isDark);
+fontSizeIncrease.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        currentFontSize =
+            Math.min(
+                150,
+                currentFontSize + 5
+            );
+
+
+        fontSizeValue.textContent =
+            currentFontSize + "%";
+
+
+        try {
+
+            localStorage.setItem(
+                FONT_SIZE_KEY,
+                String(currentFontSize)
+            );
+
+        } catch (error) {}
+
+
+        applyFontScale();
+    }
+);
+
+
+/* ==================================================
+   테마
+================================================== */
+
+function applyTheme(theme) {
+
+    const isDark =
+        theme === "dark";
+
+
+    document.body.classList.toggle(
+        "dark-theme",
+        isDark
+    );
+
+
+    document.documentElement.classList.toggle(
+        "dark-theme",
+        isDark
+    );
+
 
     try {
-        localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+
+        localStorage.setItem(
+            THEME_KEY,
+            isDark
+                ? "dark"
+                : "light"
+        );
+
     } catch (error) {}
 
-    settingsMenu.classList.remove("show");
-    settingsButton.setAttribute("aria-expanded", "false");
-    fontSizePanel.classList.remove("show");
+
+    settingsMenu.classList.remove(
+        "show"
+    );
+
+
+    settingsButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+
+    fontSizePanel.classList.remove(
+        "show"
+    );
 }
 
+
 function loadTheme() {
+
     let theme = "light";
 
+
     try {
-        theme = localStorage.getItem(THEME_KEY) || "light";
+
+        theme =
+            localStorage.getItem(
+                THEME_KEY
+            ) || "light";
+
     } catch (error) {}
+
 
     applyTheme(theme);
 }
 
-settingsButton.addEventListener("click", function(event) {
-    event.stopPropagation();
 
-    const open = settingsMenu.classList.toggle("show");
-    settingsButton.setAttribute("aria-expanded", open ? "true" : "false");
-});
+settingsButton.addEventListener(
+    "click",
+    function(event) {
 
-lightThemeButton.addEventListener("click", function() {
-    applyTheme("light");
-});
+        event.stopPropagation();
 
-darkThemeButton.addEventListener("click", function() {
-    applyTheme("dark");
-});
 
-document.addEventListener("click", function(event) {
-    if (!document.getElementById("settingsWrap").contains(event.target)) {
-        settingsMenu.classList.remove("show");
-        settingsButton.setAttribute("aria-expanded", "false");
-        fontSizePanel.classList.remove("show");
+        const open =
+            settingsMenu.classList.toggle(
+                "show"
+            );
+
+
+        settingsButton.setAttribute(
+            "aria-expanded",
+            open
+                ? "true"
+                : "false"
+        );
     }
-});
+);
+
+
+lightThemeButton.addEventListener(
+    "click",
+    function() {
+
+        applyTheme("light");
+    }
+);
+
+
+darkThemeButton.addEventListener(
+    "click",
+    function() {
+
+        applyTheme("dark");
+    }
+);
+
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            !document
+                .getElementById(
+                    "settingsWrap"
+                )
+                .contains(
+                    event.target
+                )
+        ) {
+
+            settingsMenu.classList.remove(
+                "show"
+            );
+
+
+            settingsButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            fontSizePanel.classList.remove(
+                "show"
+            );
+        }
+    }
+);
 
 
 /* ==================================================
-   가장 먼저 저장된 설정 적용
+   저장된 설정 적용
 ================================================== */
 
 loadTheme();
